@@ -1,0 +1,33 @@
+<div class="todo-panel">
+  <h3>Günlük İşler</h3>
+
+  <form class="todo-form" (submit)="$event.preventDefault(); addTodo()">
+    <input
+      type="text"
+      placeholder="Yeni iş ekle..."
+      [value]="newTitle()"
+      (input)="newTitle.set($any($event.target).value)"
+    />
+    <button type="submit">Ekle</button>
+  </form>
+
+  <ul class="todo-list">
+    @for (todo of todos(); track todo.id) {
+      <li [class.done]="todo.isDone">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="todo.isDone"
+            (change)="toggleTodo(todo)"
+          />
+          <span>{{ todo.title }}</span>
+        </label>
+        <button type="button" class="remove-btn" (click)="removeTodo(todo.id)">
+          Sil
+        </button>
+      </li>
+    } @empty {
+      <li class="empty-state">Henüz iş eklenmedi.</li>
+    }
+  </ul>
+</div>

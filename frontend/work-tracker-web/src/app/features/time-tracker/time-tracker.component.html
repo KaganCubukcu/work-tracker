@@ -1,0 +1,40 @@
+@if (session()) {
+  <div class="time-tracker">
+    <div class="elapsed">
+      <span class="label">İşe başlayalı</span>
+      <span class="value">
+        {{ elapsed().hours }}sa {{ elapsed().minutes }}dk {{ elapsed().seconds }}sn
+      </span>
+    </div>
+
+    <div class="remaining" [class.overtime]="remaining().isOvertime">
+      <span class="label">
+        {{ remaining().isOvertime ? 'Mesai aşıldı' : 'Kalan mesai' }}
+      </span>
+      <span class="value">
+        {{ remaining().hours }}sa {{ remaining().minutes }}dk {{ remaining().seconds }}sn
+      </span>
+    </div>
+
+    <details class="edit-panel">
+      <summary>Düzenle</summary>
+      <label>
+        Başlangıç saati
+        <input
+          type="time"
+          [value]="localStartTime()"
+          (change)="editStartTime($any($event.target).value)"
+        />
+      </label>
+      <label>
+        Günlük mesai (saat)
+        <input
+          type="number"
+          step="0.5"
+          [value]="session()!.expectedDailyHours"
+          (change)="editExpectedHours($any($event.target).value)"
+        />
+      </label>
+    </details>
+  </div>
+}

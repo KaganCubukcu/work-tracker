@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: ./backend/WorkTracker.Api
+      dockerfile: Dockerfile
+    container_name: worktracker-api
+    ports:
+      - "5000:8080"
+    volumes:
+      - worktracker-data:/app/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/worktracker.db
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./frontend/work-tracker-web
+      dockerfile: Dockerfile
+    container_name: worktracker-web
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  worktracker-data:
