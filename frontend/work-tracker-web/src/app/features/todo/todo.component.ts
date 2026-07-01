@@ -5,7 +5,8 @@ import { TodoItem } from '../../shared/models/todo.model';
 @Component({
   selector: 'app-todo',
   standalone: true,
-  templateUrl: './todo.component.html'
+  templateUrl: './todo.component.html',
+  styleUrl: './todo.component.scss'
 })
 export class TodoComponent implements OnInit {
   private todoService = inject(TodoService);

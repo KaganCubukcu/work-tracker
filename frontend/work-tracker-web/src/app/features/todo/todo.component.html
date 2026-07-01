@@ -1,4 +1,4 @@
-<div class="todo-panel">
+<div class="todo-card">
   <h3>Günlük İşler</h3>
 
   <form class="todo-form" (submit)="$event.preventDefault(); addTodo()">
@@ -22,12 +22,12 @@
           />
           <span>{{ todo.title }}</span>
         </label>
-        <button type="button" class="remove-btn" (click)="removeTodo(todo.id)">
-          Sil
+        <button type="button" class="remove-btn" (click)="removeTodo(todo.id)" aria-label="İşi sil">
+          ✕
         </button>
       </li>
     } @empty {
-      <li class="empty-state">Henüz iş eklenmedi.</li>
+      <li class="empty-state">Henüz iş eklenmedi. Yukarıdan ekleyebilirsin.</li>
     }
   </ul>
 </div>

@@ -1,11 +1,14 @@
-import { Component, inject, computed, OnInit } from '@angular/core';
+import { Component, inject, computed, signal, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { WorkSessionService } from '../../core/services/work-session.service';
 import { TimeService } from '../../core/services/time.service';
 
 @Component({
   selector: 'app-time-tracker',
   standalone: true,
-  templateUrl: './time-tracker.component.html'
+  imports: [CommonModule],
+  templateUrl: './time-tracker.component.html',
+  styleUrl: './time-tracker.component.scss'
 })
 export class TimeTrackerComponent implements OnInit {
   private sessionService = inject(WorkSessionService);
@@ -13,8 +16,8 @@ export class TimeTrackerComponent implements OnInit {
 
   session = this.sessionService.session;
   now = this.timeService.now;
+  showEdit = signal(false);
 
-  // Görüntülenecek local başlangıç saati ("HH:mm")
   localStartTime = computed(() => {
     const s = this.session();
     return s ? this.timeService.toLocalTimeString(s.startTime) : '';
@@ -45,6 +48,19 @@ export class TimeTrackerComponent implements OnInit {
       ...this.msToHms(Math.abs(remainingMs)),
       isOvertime: remainingMs < 0
     };
+  });
+
+  // Mesainin yüzde kaçı tükendi (bar dolum oranı)
+  progressPercent = computed(() => {
+    const s = this.session();
+    if (!s) return 0;
+
+    const start = new Date(s.startTime).getTime();
+    const current = this.now().getTime();
+    const expectedMs = s.expectedDailyHours * 60 * 60 * 1000;
+    const elapsedMs = current - start;
+
+    return Math.min(100, Math.max(0, (elapsedMs / expectedMs) * 100));
   });
 
   ngOnInit() {

@@ -1,10 +1,12 @@
 <div class="dashboard">
   <header class="dashboard-header">
-    <h1>İş Takip Paneli</h1>
+    <span class="eyebrow">İş Takip</span>
+    <h1>{{ today() }}</h1>
   </header>
 
   <section class="dashboard-grid">
     <app-time-tracker />
     <app-todo />
+    <app-daily-log />
   </section>
 </div>

@@ -1,40 +1,56 @@
 @if (session()) {
-  <div class="time-tracker">
-    <div class="elapsed">
-      <span class="label">İşe başlayalı</span>
-      <span class="value">
-        {{ elapsed().hours }}sa {{ elapsed().minutes }}dk {{ elapsed().seconds }}sn
-      </span>
+  <div class="time-card">
+    <div class="time-card__section">
+      <span class="time-card__label">İşe başlayalı</span>
+      <div class="time-card__display">
+        <span class="digit">{{ elapsed().hours | number:'2.0' }}</span>
+        <span class="sep">:</span>
+        <span class="digit">{{ elapsed().minutes | number:'2.0' }}</span>
+        <span class="sep">:</span>
+        <span class="digit digit--small">{{ elapsed().seconds | number:'2.0' }}</span>
+      </div>
     </div>
 
-    <div class="remaining" [class.overtime]="remaining().isOvertime">
-      <span class="label">
-        {{ remaining().isOvertime ? 'Mesai aşıldı' : 'Kalan mesai' }}
-      </span>
-      <span class="value">
-        {{ remaining().hours }}sa {{ remaining().minutes }}dk {{ remaining().seconds }}sn
-      </span>
+    <div class="time-card__progress">
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          [class.progress-fill--over]="remaining().isOvertime"
+          [style.width.%]="progressPercent()"
+        ></div>
+      </div>
+      <div class="progress-caption" [class.progress-caption--over]="remaining().isOvertime">
+        <span>{{ remaining().isOvertime ? 'Mesai aşıldı' : 'Kalan mesai' }}</span>
+        <span class="progress-caption__value">
+          {{ remaining().hours }}sa {{ remaining().minutes }}dk
+        </span>
+      </div>
     </div>
 
-    <details class="edit-panel">
-      <summary>Düzenle</summary>
-      <label>
-        Başlangıç saati
-        <input
-          type="time"
-          [value]="localStartTime()"
-          (change)="editStartTime($any($event.target).value)"
-        />
-      </label>
-      <label>
-        Günlük mesai (saat)
-        <input
-          type="number"
-          step="0.5"
-          [value]="session()!.expectedDailyHours"
-          (change)="editExpectedHours($any($event.target).value)"
-        />
-      </label>
-    </details>
+    <button type="button" class="edit-toggle" (click)="showEdit.set(!showEdit())">
+      {{ showEdit() ? 'Kapat' : 'Düzenle' }}
+    </button>
+
+    @if (showEdit()) {
+      <div class="edit-panel">
+        <label>
+          <span>Başlangıç saati</span>
+          <input
+            type="time"
+            [value]="localStartTime()"
+            (change)="editStartTime($any($event.target).value)"
+          />
+        </label>
+        <label>
+          <span>Günlük mesai (saat)</span>
+          <input
+            type="number"
+            step="0.5"
+            [value]="session()!.expectedDailyHours"
+            (change)="editExpectedHours($any($event.target).value)"
+          />
+        </label>
+      </div>
+    }
   </div>
 }
