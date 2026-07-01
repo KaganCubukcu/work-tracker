@@ -110,4 +110,41 @@ sessions.MapPut("/{id}", async (AppDbContext db, int id, WorkSession updated) =>
     return Results.Ok(session);
 });
 
+// ---- DailyLog Endpoints ----
+var logs = app.MapGroup("/api/daily-logs");
+
+// Bugünün notlarını getir (en yeni üstte)
+logs.MapGet("/today", async (AppDbContext db) =>
+{
+    var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+    var entries = await db.DailyLogs
+        .Where(l => l.DeletedAt == null)
+        .Where(l => l.CreatedAt.Year == today.Year
+                 && l.CreatedAt.Month == today.Month
+                 && l.CreatedAt.Day == today.Day)
+        .OrderByDescending(l => l.CreatedAt)
+        .ToListAsync();
+
+    return Results.Ok(entries);
+});
+
+logs.MapPost("/", async (AppDbContext db, DailyLog log) =>
+{
+    log.CreatedAt = DateTime.UtcNow;
+    db.DailyLogs.Add(log);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/daily-logs/{log.Id}", log);
+});
+
+logs.MapDelete("/{id}", async (AppDbContext db, int id) =>
+{
+    var log = await db.DailyLogs.FirstOrDefaultAsync(l => l.Id == id && l.DeletedAt == null);
+    if (log is null) return Results.NotFound();
+
+    log.DeletedAt = DateTime.UtcNow;
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
 app.Run();

@@ -1,0 +1,27 @@
+<div class="log-card">
+  <h3>Günlük Notlar</h3>
+
+  <form class="log-form" (submit)="$event.preventDefault(); addEntry()">
+    <textarea
+      placeholder="Bugün ne yaptın, ne oldu..."
+      [value]="newEntry()"
+      (input)="newEntry.set($any($event.target).value)"
+      rows="2"
+    ></textarea>
+    <button type="submit">Not Ekle</button>
+  </form>
+
+  <ul class="log-list">
+    @for (log of logs(); track log.id) {
+      <li>
+        <span class="log-time">{{ formatTime(log.createdAt) }}</span>
+        <span class="log-content">{{ log.content }}</span>
+        <button type="button" class="remove-btn" (click)="removeEntry(log.id)" aria-label="Notu sil">
+          ✕
+        </button>
+      </li>
+    } @empty {
+      <li class="empty-state">Bugün için henüz not yok.</li>
+    }
+  </ul>
+</div>
