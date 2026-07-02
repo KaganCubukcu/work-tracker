@@ -1,7 +1,10 @@
 <div class="dashboard">
   <header class="dashboard-header">
-    <span class="eyebrow">İş Takip</span>
-    <h1>{{ today() }}</h1>
+    <div class="dashboard-header__text">
+      <span class="eyebrow">İş Takip</span>
+      <h1>{{ today() }}</h1>
+    </div>
+    <app-tenure-badge />
   </header>
 
   <section class="dashboard-grid">

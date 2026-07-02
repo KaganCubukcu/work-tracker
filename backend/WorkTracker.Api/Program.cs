@@ -147,4 +147,78 @@ logs.MapDelete("/{id}", async (AppDbContext db, int id) =>
     return Results.NoContent();
 });
 
+// ---- BreakSlot Endpoints ----
+var breaks = app.MapGroup("/api/break-slots");
+
+breaks.MapGet("/", async (AppDbContext db) =>
+    await db.BreakSlots
+        .Where(b => b.DeletedAt == null)
+        .OrderBy(b => b.StartTime)
+        .ToListAsync());
+
+breaks.MapPost("/", async (AppDbContext db, BreakSlot slot) =>
+{
+    db.BreakSlots.Add(slot);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/break-slots/{slot.Id}", slot);
+});
+
+breaks.MapPut("/{id}", async (AppDbContext db, int id, BreakSlot updated) =>
+{
+    var slot = await db.BreakSlots.FirstOrDefaultAsync(b => b.Id == id && b.DeletedAt == null);
+    if (slot is null) return Results.NotFound();
+
+    slot.Label = updated.Label;
+    slot.StartTime = updated.StartTime;
+    slot.EndTime = updated.EndTime;
+
+    await db.SaveChangesAsync();
+    return Results.Ok(slot);
+});
+
+breaks.MapDelete("/{id}", async (AppDbContext db, int id) =>
+{
+    var slot = await db.BreakSlots.FirstOrDefaultAsync(b => b.Id == id && b.DeletedAt == null);
+    if (slot is null) return Results.NotFound();
+
+    slot.DeletedAt = DateTime.UtcNow;
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
+// ---- UserSettings Endpoints ----
+var settings = app.MapGroup("/api/settings");
+
+settings.MapGet("/", async (AppDbContext db) =>
+{
+    var s = await db.UserSettings.FirstOrDefaultAsync();
+
+    if (s is null)
+    {
+        s = new UserSettings { HireDate = null };
+        db.UserSettings.Add(s);
+        await db.SaveChangesAsync();
+    }
+
+    return Results.Ok(s);
+});
+
+settings.MapPut("/", async (AppDbContext db, UserSettings updated) =>
+{
+    var s = await db.UserSettings.FirstOrDefaultAsync();
+
+    if (s is null)
+    {
+        s = new UserSettings { HireDate = updated.HireDate };
+        db.UserSettings.Add(s);
+    }
+    else
+    {
+        s.HireDate = updated.HireDate;
+    }
+
+    await db.SaveChangesAsync();
+    return Results.Ok(s);
+});
+
 app.Run();

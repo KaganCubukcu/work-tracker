@@ -1,0 +1,25 @@
+<div class="tenure-badge">
+  @if (dayCount(); as days) {
+    <button type="button" class="tenure-badge__content" (click)="showEdit.set(!showEdit())">
+      <span class="tenure-badge__number">{{ days }}</span>
+      <span class="tenure-badge__label">. gün</span>
+    </button>
+  } @else {
+    <button type="button" class="tenure-badge__empty" (click)="showEdit.set(!showEdit())">
+      İşe giriş tarihini ekle
+    </button>
+  }
+
+  @if (showEdit()) {
+    <div class="tenure-badge__edit">
+      <label>
+        İşe giriş tarihi
+        <input
+          type="date"
+          [value]="settings()?.hireDate ?? ''"
+          (change)="saveHireDate($any($event.target).value)"
+        />
+      </label>
+    </div>
+  }
+</div>

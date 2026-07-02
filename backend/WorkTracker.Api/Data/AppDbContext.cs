@@ -11,6 +11,8 @@ public class AppDbContext : DbContext
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
     public DbSet<WorkSession> WorkSessions => Set<WorkSession>();
     public DbSet<DailyLog> DailyLogs => Set<DailyLog>();
+    public DbSet<BreakSlot> BreakSlots => Set<BreakSlot>();
+    public DbSet<UserSettings> UserSettings => Set<UserSettings>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
