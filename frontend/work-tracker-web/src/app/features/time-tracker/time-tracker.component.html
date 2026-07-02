@@ -30,7 +30,24 @@
     <button type="button" class="edit-toggle" (click)="showEdit.set(!showEdit())">
       {{ showEdit() ? 'Kapat' : 'Düzenle' }}
     </button>
-
+<div class="breaks-section">
+      <span class="breaks-section__label">Molalar</span>
+      <ul class="breaks-list">
+        @for (b of breakStatuses(); track b.id) {
+          <li [class]="'break-item break-item--' + b.status">
+            <span class="break-item__label">{{ b.label }}</span>
+            <span class="break-item__time">{{ b.startTime.slice(0,5) }}–{{ b.endTime.slice(0,5) }}</span>
+            <span class="break-item__status">
+              @switch (b.status) {
+                @case ('active') { <span class="badge badge--active">Şimdi · {{ b.countdown }} kaldı</span> }
+                @case ('upcoming') { <span class="badge">{{ b.countdown }} kaldı</span> }
+                @case ('passed') { <span class="badge badge--passed">Geçti</span> }
+              }
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
     @if (showEdit()) {
       <div class="edit-panel">
         <label>
