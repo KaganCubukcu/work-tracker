@@ -17,4 +17,45 @@ export class BreakSlotService {
       console.error('Molalar yüklenemedi:', err);
     }
   }
+
+  async add(label: string, startTime: string, endTime: string) {
+    try {
+      const newSlot = await this.http
+        .post<BreakSlot>(this.apiUrl, { label, startTime, endTime })
+        .toPromise();
+      if (newSlot) {
+        this.breaks.update(list =>
+          [...list, newSlot].sort((a, b) => a.startTime.localeCompare(b.startTime))
+        );
+      }
+    } catch (err) {
+      console.error('Mola eklenemedi:', err);
+    }
+  }
+
+  async update(id: number, label: string, startTime: string, endTime: string) {
+    try {
+      const updated = await this.http
+        .put<BreakSlot>(`${this.apiUrl}/${id}`, { label, startTime, endTime })
+        .toPromise();
+      if (updated) {
+        this.breaks.update(list =>
+          list
+            .map(b => (b.id === updated.id ? updated : b))
+            .sort((a, b) => a.startTime.localeCompare(b.startTime))
+        );
+      }
+    } catch (err) {
+      console.error('Mola güncellenemedi:', err);
+    }
+  }
+
+  async remove(id: number) {
+    try {
+      await this.http.delete(`${this.apiUrl}/${id}`).toPromise();
+      this.breaks.update(list => list.filter(b => b.id !== id));
+    } catch (err) {
+      console.error('Mola silinemedi:', err);
+    }
+  }
 }

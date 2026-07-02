@@ -1,0 +1,71 @@
+<div class="settings-page">
+  <header class="settings-header">
+    <a routerLink="/" class="back-link">← Panele dön</a>
+    <h1>Mola Ayarları</h1>
+  </header>
+
+  <div class="settings-card">
+    <h3>Yeni Mola Ekle</h3>
+    <form class="break-form" (submit)="$event.preventDefault(); addBreak()">
+      <input
+        type="text"
+        placeholder="Mola adı (örn. Sabah Molası)"
+        [value]="newLabel()"
+        (input)="newLabel.set($any($event.target).value)"
+      />
+      <input
+        type="time"
+        [value]="newStart()"
+        (input)="newStart.set($any($event.target).value)"
+      />
+      <span class="sep">–</span>
+      <input
+        type="time"
+        [value]="newEnd()"
+        (input)="newEnd.set($any($event.target).value)"
+      />
+      <button type="submit">Ekle</button>
+    </form>
+  </div>
+
+  <div class="settings-card">
+    <h3>Mevcut Molalar</h3>
+    <ul class="break-list">
+      @for (b of breaks(); track b.id) {
+        <li>
+          @if (editingId() === b.id) {
+            <div class="break-edit-row">
+              <input
+                type="text"
+                [value]="editLabel()"
+                (input)="editLabel.set($any($event.target).value)"
+              />
+              <input
+                type="time"
+                [value]="editStart()"
+                (input)="editStart.set($any($event.target).value)"
+              />
+              <span class="sep">–</span>
+              <input
+                type="time"
+                [value]="editEnd()"
+                (input)="editEnd.set($any($event.target).value)"
+              />
+              <button type="button" class="save-btn" (click)="saveEdit(b.id)">Kaydet</button>
+              <button type="button" class="cancel-btn" (click)="cancelEdit()">Vazgeç</button>
+            </div>
+          } @else {
+            <div class="break-row">
+              <span class="break-row__label">{{ b.label }}</span>
+              <span class="break-row__time">{{ b.startTime.slice(0,5) }}–{{ b.endTime.slice(0,5) }}</span>
+              <button type="button" class="edit-btn" (click)="startEdit(b)">Düzenle</button>
+              <button type="button" class="remove-btn" (click)="removeBreak(b.id)">Sil</button>
+            </div>
+          }
+        </li>
+      } @empty {
+        <li class="empty-state">Henüz mola tanımlanmadı.</li>
+      }
+    </ul>
+  </div>
+</div>

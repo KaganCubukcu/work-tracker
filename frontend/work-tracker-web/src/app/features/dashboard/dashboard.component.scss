@@ -49,3 +49,19 @@
     }
   }
 }
+
+.dashboard-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.settings-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}

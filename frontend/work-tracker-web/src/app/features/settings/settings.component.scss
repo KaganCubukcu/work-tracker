@@ -1,0 +1,156 @@
+.settings-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.settings-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+
+  .back-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.settings-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+}
+
+.break-form,
+.break-edit-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+
+  input[type="text"] {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  input {
+    background: var(--color-panel-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.6rem;
+    color: var(--color-text);
+    font-size: 0.85rem;
+
+    &:hover, &:focus {
+      border-color: var(--color-accent);
+    }
+  }
+
+  .sep {
+    color: var(--color-text-muted);
+  }
+
+  button {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+.break-form button,
+.save-btn {
+  background: var(--color-accent);
+  color: var(--color-bg);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text-muted);
+
+  &:hover {
+    border-color: var(--color-danger) !important;
+  }
+}
+
+.break-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.break-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--color-panel-alt);
+
+  &__label {
+    flex: 1;
+    color: var(--color-text);
+    font-size: 0.9rem;
+  }
+
+  &__time {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+}
+
+.edit-btn,
+.remove-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  padding: 0.25rem 0.4rem;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.remove-btn:hover {
+  color: var(--color-danger);
+}
+
+.empty-state {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  padding: var(--space-sm) 0.25rem;
+}
