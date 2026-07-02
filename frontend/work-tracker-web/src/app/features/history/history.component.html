@@ -1,0 +1,77 @@
+<div class="history-page">
+  <header class="history-header">
+    <a routerLink="/" class="back-link">← Panele dön</a>
+    <h1>Geçmiş Günler</h1>
+  </header>
+
+  <div class="history-layout">
+    <nav class="history-list">
+      @for (date of pastDates(); track date) {
+        <button
+          type="button"
+          class="history-list__item"
+          [class.active]="selectedDay()?.date === date"
+          (click)="selectDay(date)"
+        >
+          {{ formatDate(date) }}
+        </button>
+      } @empty {
+        <p class="empty-state">Henüz geçmiş gün kaydı yok.</p>
+      }
+    </nav>
+
+    <div class="history-detail">
+      @if (selectedDay(); as day) {
+        <div class="detail-section">
+          <h3>Mesai</h3>
+          @if (day.session) {
+            <p class="detail-line">
+              <span class="detail-label">Başlangıç:</span>
+              {{ sessionDuration(day.session.startTime) }}
+            </p>
+            <p class="detail-line">
+              <span class="detail-label">Hedeflenen mesai:</span>
+              {{ day.session.expectedDailyHours }} saat
+            </p>
+          } @else {
+            <p class="empty-state">O gün için mesai kaydı yok.</p>
+          }
+        </div>
+
+        <div class="detail-section">
+          <h3>İşler ({{ day.todos.length }})</h3>
+          @if (day.todos.length > 0) {
+            <ul class="detail-todo-list">
+              @for (todo of day.todos; track todo.id) {
+                <li [class.done]="todo.isDone">
+                  <span class="todo-status">{{ todo.isDone ? '✓' : '○' }}</span>
+                  <span>{{ todo.title }}</span>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="empty-state">O gün eklenen iş yok.</p>
+          }
+        </div>
+
+        <div class="detail-section">
+          <h3>Notlar ({{ day.logs.length }})</h3>
+          @if (day.logs.length > 0) {
+            <ul class="detail-log-list">
+              @for (log of day.logs; track log.id) {
+                <li>
+                  <span class="log-time">{{ formatTime(log.createdAt) }}</span>
+                  <span>{{ log.content }}</span>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="empty-state">O gün not eklenmemiş.</p>
+          }
+        </div>
+      } @else {
+        <p class="empty-state">Soldan bir gün seç.</p>
+      }
+    </div>
+  </div>
+</div>

@@ -221,4 +221,52 @@ settings.MapPut("/", async (AppDbContext db, UserSettings updated) =>
     return Results.Ok(s);
 });
 
+// ---- History Endpoints ----
+var history = app.MapGroup("/api/history");
+
+history.MapGet("/{date}", async (AppDbContext db, string date) =>
+{
+    if (!DateOnly.TryParse(date, out var targetDate))
+    {
+        return Results.BadRequest("Geçersiz tarih formatı. YYYY-MM-DD kullanın.");
+    }
+
+    var session = await db.WorkSessions
+        .FirstOrDefaultAsync(s => s.Date == targetDate && s.DeletedAt == null);
+
+    var todos = await db.TodoItems
+        .Where(t => t.DeletedAt == null)
+        .Where(t => t.CreatedAt.Year == targetDate.Year
+                 && t.CreatedAt.Month == targetDate.Month
+                 && t.CreatedAt.Day == targetDate.Day)
+        .OrderBy(t => t.CreatedAt)
+        .ToListAsync();
+
+    var logs = await db.DailyLogs
+        .Where(l => l.DeletedAt == null)
+        .Where(l => l.CreatedAt.Year == targetDate.Year
+                 && l.CreatedAt.Month == targetDate.Month
+                 && l.CreatedAt.Day == targetDate.Day)
+        .OrderBy(l => l.CreatedAt)
+        .ToListAsync();
+
+    return Results.Ok(new
+    {
+        date = targetDate,
+        session,
+        todos,
+        logs
+    });
+});
+
+history.MapGet("/", async (AppDbContext db) =>
+{
+    var sessionDates = await db.WorkSessions
+        .Where(s => s.DeletedAt == null)
+        .Select(s => s.Date)
+        .ToListAsync();
+
+    return Results.Ok(sessionDates.OrderByDescending(d => d));
+});
+
 app.Run();
