@@ -1,7 +1,7 @@
 @if (session()) {
   <div class="time-card">
     <div class="time-card__section">
-      <span class="time-card__label">İşe başlayalı</span>
+      <span class="time-card__label">{{ 'timeTracker.sinceStart' | transloco }}</span>
       <div class="time-card__display">
         <span class="digit">{{ elapsed().hours | number:'2.0' }}</span>
         <span class="sep">:</span>
@@ -20,18 +20,19 @@
         ></div>
       </div>
       <div class="progress-caption" [class.progress-caption--over]="remaining().isOvertime">
-        <span>{{ remaining().isOvertime ? 'Mesai aşıldı' : 'Kalan mesai' }}</span>
+        <span>{{ (remaining().isOvertime ? 'timeTracker.overtimeExceeded' : 'timeTracker.remainingWork') | transloco }}</span>
         <span class="progress-caption__value">
-          {{ remaining().hours }}sa {{ remaining().minutes }}dk
+          {{ remaining().hours }}{{ 'timeTracker.hoursShort' | transloco }} {{ remaining().minutes }}{{ 'timeTracker.minutesShort' | transloco }}
         </span>
       </div>
     </div>
 
     <button type="button" class="edit-toggle" (click)="showEdit.set(!showEdit())">
-      {{ showEdit() ? 'Kapat' : 'Düzenle' }}
+      {{ (showEdit() ? 'timeTracker.close' : 'timeTracker.edit') | transloco }}
     </button>
-<div class="breaks-section">
-      <span class="breaks-section__label">Molalar</span>
+
+    <div class="breaks-section">
+      <span class="breaks-section__label">{{ 'timeTracker.breaks' | transloco }}</span>
       <ul class="breaks-list">
         @for (b of breakStatuses(); track b.id) {
           <li [class]="'break-item break-item--' + b.status">
@@ -39,19 +40,20 @@
             <span class="break-item__time">{{ b.startTime.slice(0,5) }}–{{ b.endTime.slice(0,5) }}</span>
             <span class="break-item__status">
               @switch (b.status) {
-                @case ('active') { <span class="badge badge--active">Şimdi · {{ b.countdown }} kaldı</span> }
-                @case ('upcoming') { <span class="badge">{{ b.countdown }} kaldı</span> }
-                @case ('passed') { <span class="badge badge--passed">Geçti</span> }
+                @case ('active') { <span class="badge badge--active">{{ 'timeTracker.breakActive' | transloco: { time: b.countdown } }}</span> }
+                @case ('upcoming') { <span class="badge">{{ 'timeTracker.breakUpcoming' | transloco: { time: b.countdown } }}</span> }
+                @case ('passed') { <span class="badge badge--passed">{{ 'timeTracker.breakPassed' | transloco }}</span> }
               }
             </span>
           </li>
         }
       </ul>
     </div>
+
     @if (showEdit()) {
       <div class="edit-panel">
         <label>
-          <span>Başlangıç saati</span>
+          <span>{{ 'timeTracker.startTime' | transloco }}</span>
           <input
             type="time"
             [value]="localStartTime()"
@@ -59,7 +61,7 @@
           />
         </label>
         <label>
-          <span>Günlük mesai (saat)</span>
+          <span>{{ 'timeTracker.dailyHours' | transloco }}</span>
           <input
             type="number"
             step="0.5"

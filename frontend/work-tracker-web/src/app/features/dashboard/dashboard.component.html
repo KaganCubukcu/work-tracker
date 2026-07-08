@@ -1,12 +1,13 @@
 <div class="dashboard">
   <header class="dashboard-header">
     <div class="dashboard-header__text">
-      <span class="eyebrow">İş Takip</span>
+      <span class="eyebrow">{{ 'dashboard.eyebrow' | transloco }}</span>
       <h1>{{ today() }}</h1>
     </div>
     <div class="dashboard-header__actions">
-      <a routerLink="/history" class="settings-link">Geçmiş</a>
-      <a routerLink="/settings" class="settings-link">Ayarlar</a>
+      <a routerLink="/history" class="settings-link">{{ 'dashboard.history' | transloco }}</a>
+      <app-lang-switcher />
+      <a routerLink="/settings" class="settings-link">{{ 'dashboard.settings' | transloco }}</a>
       <app-tenure-badge />
     </div>
   </header>

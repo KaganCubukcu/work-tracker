@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "eyebrow": "Work Tracker",
+    "history": "History",
+    "settings": "Settings"
+  },
+  "timeTracker": {
+    "sinceStart": "Time since start",
+    "overtimeExceeded": "Overtime exceeded",
+    "remainingWork": "Remaining time",
+    "edit": "Edit",
+    "close": "Close",
+    "breaks": "Breaks",
+    "startTime": "Start time",
+    "dailyHours": "Daily hours",
+    "breakActive": "Now · {{time}} left",
+    "breakUpcoming": "{{time}} left",
+    "breakPassed": "Passed",
+    "hoursShort": "h",
+    "minutesShort": "m"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "eyebrow": "İş Takip",
+    "history": "Geçmiş",
+    "settings": "Ayarlar"
+  },
+  "timeTracker": {
+    "sinceStart": "İşe başlayalı",
+    "overtimeExceeded": "Mesai aşıldı",
+    "remainingWork": "Kalan mesai",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "breaks": "Molalar",
+    "startTime": "Başlangıç saati",
+    "dailyHours": "Günlük mesai (saat)",
+    "breakActive": "Şimdi · {{time}} kaldı",
+    "breakUpcoming": "{{time}} kaldı",
+    "breakPassed": "Geçti",
+    "hoursShort": "sa",
+    "minutesShort": "dk"
+  }
+}

@@ -1,13 +1,15 @@
 import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoService, TranslocoModule } from '@jsverse/transloco';
 import { WorkSessionService } from '../../core/services/work-session.service';
 import { TimeService } from '../../core/services/time.service';
 import { BreakSlotService } from '../../core/services/break-slot.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-time-tracker',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TranslocoModule],
   templateUrl: './time-tracker.component.html',
   styleUrl: './time-tracker.component.scss'
 })
@@ -15,7 +17,8 @@ export class TimeTrackerComponent implements OnInit {
   private sessionService = inject(WorkSessionService);
   private timeService = inject(TimeService);
   private breakService = inject(BreakSlotService);
-
+  private transloco = inject(TranslocoService);
+  private activeLang = toSignal(this.transloco.langChanges$, { initialValue: this.transloco.getActiveLang() });
   session = this.sessionService.session;
   now = this.timeService.now;
   showEdit = signal(false);
@@ -36,7 +39,6 @@ export class TimeTrackerComponent implements OnInit {
     return this.msToHms(diffMs);
   });
 
-  // Şu ana kadar geçmiş molaların toplam süresi (ms)
   private elapsedBreakMs = computed(() => {
     const currentTime = this.now();
     const breaks = this.breakService.breaks();
@@ -85,6 +87,9 @@ export class TimeTrackerComponent implements OnInit {
     });
 
    breakStatuses = computed(() => {
+
+    this.activeLang();
+    
     const currentTime = this.now();
     const breaks = this.breakService.breaks();
 
@@ -145,10 +150,12 @@ export class TimeTrackerComponent implements OnInit {
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
   }
 
-  private msToShortHm(ms: number): string {
+    private msToShortHm(ms: number): string {
     const totalMinutes = Math.floor(ms / 60000);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return hours > 0 ? `${hours}sa ${minutes}dk` : `${minutes}dk`;
+    const h = this.transloco.translate('timeTracker.hoursShort');
+    const m = this.transloco.translate('timeTracker.minutesShort');
+    return hours > 0 ? `${hours}${h} ${minutes}${m}` : `${minutes}${m}`;
   }
 }
