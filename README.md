@@ -49,8 +49,10 @@ npm start
 The app runs at `http://localhost:4200`. `/api` requests are automatically proxied to the backend (`localhost:5055`) via `proxy.conf.json`.
 
 ## Project Structure
+```
 work-tracker/
 ├── backend/
 │   └── WorkTracker.Api/     # .NET Minimal API, EF Core, SQLite
 └── frontend/
-└── work-tracker-web/    # Angular 22 application
+    └── work-tracker-web/    # Angular 22 application
+```
