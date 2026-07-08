@@ -113,7 +113,6 @@ sessions.MapPut("/{id}", async (AppDbContext db, int id, WorkSession updated) =>
 // ---- DailyLog Endpoints ----
 var logs = app.MapGroup("/api/daily-logs");
 
-// Bugünün notlarını getir (en yeni üstte)
 logs.MapGet("/today", async (AppDbContext db) =>
 {
     var today = DateOnly.FromDateTime(DateTime.UtcNow);

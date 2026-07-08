@@ -16,5 +16,4 @@ backend/**/appsettings.Development.json
 .idea/
 *.swp
 
-# --- Genel loglar ---
 *.log

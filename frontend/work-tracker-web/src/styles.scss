@@ -1,5 +1,4 @@
 :root {
-  // --- Renk sistemi ---
   --color-bg: #12151C;
   --color-panel: #3A3F4B;
   --color-panel-alt: #2A2E38;
@@ -10,11 +9,9 @@
   --color-danger: #C4634F;
   --color-border: #4A4F5C;
 
-  // --- Tipografi ---
   --font-display: 'IBM Plex Mono', monospace;
   --font-body: 'IBM Plex Sans', sans-serif;
 
-  // --- Ölçek ---
   --radius-sm: 4px;
   --radius-md: 8px;
   --space-xs: 0.5rem;
@@ -58,7 +55,6 @@ input {
   font-family: var(--font-body);
 }
 
-// Klavye erişilebilirliği - odak görünürlüğü
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;

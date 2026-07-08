@@ -16,8 +16,6 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // SQLite, DateTime.Kind bilgisini saklamaz. Bu converter, DB'den
-        // okunan her DateTime'ı UTC olarak işaretler, yazarken de olduğu gibi yazar.
         var utcConverter = new ValueConverter<DateTime, DateTime>(
             v => v,
             v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
