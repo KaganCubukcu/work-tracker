@@ -15,6 +15,19 @@ export class DailyLogComponent implements OnInit {
   logs = this.logService.logs;
   newEntry = signal('');
 
+  searchInput = signal('');
+  dateFrom = signal('');
+  dateTo = signal('');
+  searchResults = this.logService.searchResults;
+
+  isFiltering = computed(() =>
+    this.searchInput().trim() !== '' || this.dateFrom() !== '' || this.dateTo() !== ''
+  );
+
+  displayedLogs = computed(() =>
+    this.isFiltering() ? this.searchResults() : this.logs()
+  );
+
   ngOnInit() {
     this.logService.loadToday();
   }
@@ -29,6 +42,34 @@ export class DailyLogComponent implements OnInit {
 
   removeEntry(id: number) {
     this.logService.remove(id);
+  }
+
+  onSearchInput(value: string) {
+    this.searchInput.set(value);
+    this.logService.setSearchQuery(value);
+  }
+
+  onDateFromChange(value: string) {
+    this.dateFrom.set(value);
+    this.applyDateRange();
+  }
+
+  onDateToChange(value: string) {
+    this.dateTo.set(value);
+    this.applyDateRange();
+  }
+
+  private applyDateRange() {
+    const from = this.dateFrom() ? new Date(this.dateFrom()) : null;
+    const to = this.dateTo() ? new Date(this.dateTo()) : null;
+    this.logService.setDateRange(from, to);
+  }
+
+  clearFilters() {
+    this.searchInput.set('');
+    this.dateFrom.set('');
+    this.dateTo.set('');
+    this.logService.clearFilters();
   }
 
   formatTime(createdAt: string): string {

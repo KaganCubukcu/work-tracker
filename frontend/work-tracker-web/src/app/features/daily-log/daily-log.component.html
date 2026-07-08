@@ -11,8 +11,36 @@
     <button type="submit">Not Ekle</button>
   </form>
 
+  <div class="log-filters">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Notlarda ara..."
+      [value]="searchInput()"
+      (input)="onSearchInput($any($event.target).value)"
+    />
+    <div class="date-range">
+      <input
+        type="date"
+        [value]="dateFrom()"
+        (change)="onDateFromChange($any($event.target).value)"
+      />
+      <span class="date-sep">–</span>
+      <input
+        type="date"
+        [value]="dateTo()"
+        (change)="onDateToChange($any($event.target).value)"
+      />
+    </div>
+    @if (isFiltering()) {
+      <button type="button" class="clear-filters-btn" (click)="clearFilters()">
+        Filtreyi temizle
+      </button>
+    }
+  </div>
+
   <ul class="log-list">
-    @for (log of logs(); track log.id) {
+    @for (log of displayedLogs(); track log.id) {
       <li>
         <span class="log-time">{{ formatTime(log.createdAt) }}</span>
         <span class="log-content">{{ log.content }}</span>
@@ -21,7 +49,9 @@
         </button>
       </li>
     } @empty {
-      <li class="empty-state">Bugün için henüz not yok.</li>
+      <li class="empty-state">
+        {{ isFiltering() ? 'Aramanızla eşleşen kayıt bulunamadı.' : 'Bugün için henüz not yok.' }}
+      </li>
     }
   </ul>
 </div>

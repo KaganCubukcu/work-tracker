@@ -269,4 +269,34 @@ history.MapGet("/", async (AppDbContext db) =>
     return Results.Ok(sessionDates.OrderByDescending(d => d));
 });
 
+// ---- DailyLog Search ----
+logs.MapGet("/search", async (AppDbContext db, string? q, DateOnly? from, DateOnly? to) =>
+{
+    var query = db.DailyLogs.Where(l => l.DeletedAt == null).AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(q))
+    {
+        var loweredQ = q.ToLower();
+        query = query.Where(l => l.Content.ToLower().Contains(loweredQ));
+    }
+
+    if (from.HasValue)
+    {
+        var fromDate = from.Value.ToDateTime(TimeOnly.MinValue);
+        query = query.Where(l => l.CreatedAt >= fromDate);
+    }
+
+    if (to.HasValue)
+    {
+        var toDate = to.Value.ToDateTime(TimeOnly.MaxValue);
+        query = query.Where(l => l.CreatedAt <= toDate);
+    }
+
+    var results = await query
+        .OrderByDescending(l => l.CreatedAt)
+        .ToListAsync();
+
+    return Results.Ok(results);
+});
+
 app.Run();
