@@ -72,4 +72,13 @@ export class DailyLogService {
     await this.http.delete(`${this.apiUrl}/${id}`).toPromise();
     this.logs.update(list => list.filter(l => l.id !== id));
   }
+
+  async update(id: number, content: string) {
+    const updated = await this.http
+      .put<DailyLog>(`${this.apiUrl}/${id}`, { content })
+      .toPromise();
+    if (updated) {
+      this.logs.update(list => list.map(l => (l.id === updated.id ? updated : l)));
+    }
+  }
 }

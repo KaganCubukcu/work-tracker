@@ -146,6 +146,17 @@ logs.MapDelete("/{id}", async (AppDbContext db, int id) =>
     return Results.NoContent();
 });
 
+logs.MapPut("/{id}", async (AppDbContext db, int id, DailyLog updated) =>
+{
+    var log = await db.DailyLogs.FirstOrDefaultAsync(l => l.Id == id && l.DeletedAt == null);
+    if (log is null) return Results.NotFound();
+
+    log.Content = updated.Content;
+
+    await db.SaveChangesAsync();
+    return Results.Ok(log);
+});
+
 // ---- BreakSlot Endpoints ----
 var breaks = app.MapGroup("/api/break-slots");
 

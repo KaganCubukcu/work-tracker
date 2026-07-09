@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 import { DailyLogService } from '../../core/services/daily-log.service';
 import { TimeService } from '../../core/services/time.service';
+import { DailyLog } from '../../shared/models/daily-log.model';
 
 @Component({
   selector: 'app-daily-log',
@@ -21,6 +22,9 @@ export class DailyLogComponent implements OnInit {
   dateFrom = signal('');
   dateTo = signal('');
   searchResults = this.logService.searchResults;
+
+  editingId = signal<number | null>(null);
+  editContent = signal('');
 
   isFiltering = computed(() =>
     this.searchInput().trim() !== '' || this.dateFrom() !== '' || this.dateTo() !== ''
@@ -44,6 +48,22 @@ export class DailyLogComponent implements OnInit {
 
   removeEntry(id: number) {
     this.logService.remove(id);
+  }
+
+  startEdit(log: DailyLog) {
+    this.editingId.set(log.id);
+    this.editContent.set(log.content);
+  }
+
+  cancelEdit() {
+    this.editingId.set(null);
+  }
+
+  async saveEdit(id: number) {
+    const content = this.editContent().trim();
+    if (!content) return;
+    await this.logService.update(id, content);
+    this.editingId.set(null);
   }
 
   onSearchInput(value: string) {

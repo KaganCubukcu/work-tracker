@@ -29,6 +29,10 @@
     "searchPlaceholder": "Notlarda ara...",
     "clearFilters": "Filtreyi temizle",
     "removeEntry": "Notu sil",
+    "editEntry": "Notu düzenle",
+    "edit": "Düzenle",
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
     "noSearchResults": "Aramanızla eşleşen kayıt bulunamadı.",
     "noEntriesToday": "Bugün için henüz not yok."
   },

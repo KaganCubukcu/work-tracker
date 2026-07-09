@@ -29,6 +29,10 @@
     "searchPlaceholder": "Search notes...",
     "clearFilters": "Clear filters",
     "removeEntry": "Delete note",
+    "editEntry": "Edit note",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
     "noSearchResults": "No entries match your search.",
     "noEntriesToday": "No notes yet for today."
   },

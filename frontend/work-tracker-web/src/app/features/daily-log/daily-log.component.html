@@ -42,11 +42,28 @@
   <ul class="log-list">
     @for (log of displayedLogs(); track log.id) {
       <li>
-        <span class="log-time">{{ formatTime(log.createdAt) }}</span>
-        <span class="log-content">{{ log.content }}</span>
-        <button type="button" class="remove-btn" (click)="removeEntry(log.id)" aria-label="{{ 'dailyLog.removeEntry' | transloco }}">
-          ✕
-        </button>
+        @if (editingId() === log.id) {
+          <div class="log-edit-row">
+            <textarea
+              [value]="editContent()"
+              (input)="editContent.set($any($event.target).value)"
+              rows="2"
+            ></textarea>
+            <div class="log-edit-row__actions">
+              <button type="button" class="save-btn" (click)="saveEdit(log.id)">{{ 'dailyLog.save' | transloco }}</button>
+              <button type="button" class="cancel-btn" (click)="cancelEdit()">{{ 'dailyLog.cancel' | transloco }}</button>
+            </div>
+          </div>
+        } @else {
+          <span class="log-time">{{ formatTime(log.createdAt) }}</span>
+          <span class="log-content">{{ log.content }}</span>
+          <button type="button" class="edit-btn" (click)="startEdit(log)" aria-label="{{ 'dailyLog.editEntry' | transloco }}">
+            ✎
+          </button>
+          <button type="button" class="remove-btn" (click)="removeEntry(log.id)" aria-label="{{ 'dailyLog.removeEntry' | transloco }}">
+            ✕
+          </button>
+        }
       </li>
     } @empty {
       <li class="empty-state">
