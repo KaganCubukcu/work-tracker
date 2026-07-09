@@ -1,7 +1,7 @@
 <div class="history-page">
   <header class="history-header">
-    <a routerLink="/" class="back-link">← Panele dön</a>
-    <h1>Geçmiş Günler</h1>
+    <a routerLink="/" class="back-link">{{ 'common.backToDashboard' | transloco }}</a>
+    <h1>{{ 'history.title' | transloco }}</h1>
   </header>
 
   <div class="history-layout">
@@ -16,30 +16,30 @@
           {{ formatDate(date) }}
         </button>
       } @empty {
-        <p class="empty-state">Henüz geçmiş gün kaydı yok.</p>
+        <p class="empty-state">{{ 'history.noPastDays' | transloco }}</p>
       }
     </nav>
 
     <div class="history-detail">
       @if (selectedDay(); as day) {
         <div class="detail-section">
-          <h3>Mesai</h3>
+          <h3>{{ 'history.workSession' | transloco }}</h3>
           @if (day.session) {
             <p class="detail-line">
-              <span class="detail-label">Başlangıç:</span>
+              <span class="detail-label">{{ 'history.startLabel' | transloco }}</span>
               {{ sessionDuration(day.session.startTime) }}
             </p>
             <p class="detail-line">
-              <span class="detail-label">Hedeflenen mesai:</span>
-              {{ day.session.expectedDailyHours }} saat
+              <span class="detail-label">{{ 'history.targetLabel' | transloco }}</span>
+              {{ 'history.targetHours' | transloco: { hours: day.session.expectedDailyHours } }}
             </p>
           } @else {
-            <p class="empty-state">O gün için mesai kaydı yok.</p>
+            <p class="empty-state">{{ 'history.noSessionForDay' | transloco }}</p>
           }
         </div>
 
         <div class="detail-section">
-          <h3>İşler ({{ day.todos.length }})</h3>
+          <h3>{{ 'history.todosCount' | transloco: { count: day.todos.length } }}</h3>
           @if (day.todos.length > 0) {
             <ul class="detail-todo-list">
               @for (todo of day.todos; track todo.id) {
@@ -50,12 +50,12 @@
               }
             </ul>
           } @else {
-            <p class="empty-state">O gün eklenen iş yok.</p>
+            <p class="empty-state">{{ 'history.noTodosForDay' | transloco }}</p>
           }
         </div>
 
         <div class="detail-section">
-          <h3>Notlar ({{ day.logs.length }})</h3>
+          <h3>{{ 'history.notesCount' | transloco: { count: day.logs.length } }}</h3>
           @if (day.logs.length > 0) {
             <ul class="detail-log-list">
               @for (log of day.logs; track log.id) {
@@ -66,11 +66,11 @@
               }
             </ul>
           } @else {
-            <p class="empty-state">O gün not eklenmemiş.</p>
+            <p class="empty-state">{{ 'history.noNotesForDay' | transloco }}</p>
           }
         </div>
       } @else {
-        <p class="empty-state">Soldan bir gün seç.</p>
+        <p class="empty-state">{{ 'history.selectDayPrompt' | transloco }}</p>
       }
     </div>
   </div>

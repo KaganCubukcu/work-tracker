@@ -18,5 +18,44 @@
     "breakPassed": "Passed",
     "hoursShort": "h",
     "minutesShort": "m"
+  },
+  "common": {
+    "backToDashboard": "← Back to dashboard"
+  },
+  "dailyLog": {
+    "title": "Daily Notes",
+    "entryPlaceholder": "What did you do today...",
+    "addEntry": "Add Note",
+    "searchPlaceholder": "Search notes...",
+    "clearFilters": "Clear filters",
+    "removeEntry": "Delete note",
+    "noSearchResults": "No entries match your search.",
+    "noEntriesToday": "No notes yet for today."
+  },
+  "history": {
+    "title": "Past Days",
+    "noPastDays": "No past days recorded yet.",
+    "workSession": "Work Session",
+    "startLabel": "Start:",
+    "targetLabel": "Target hours:",
+    "targetHours": "{{hours}} hours",
+    "noSessionForDay": "No work session recorded for that day.",
+    "todosCount": "Tasks ({{count}})",
+    "noTodosForDay": "No tasks added that day.",
+    "notesCount": "Notes ({{count}})",
+    "noNotesForDay": "No notes added that day.",
+    "selectDayPrompt": "Select a day from the left."
+  },
+  "settings": {
+    "title": "Break Settings",
+    "addBreakTitle": "Add New Break",
+    "breakNamePlaceholder": "Break name (e.g. Morning Break)",
+    "add": "Add",
+    "currentBreaksTitle": "Current Breaks",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "remove": "Delete",
+    "noBreaksYet": "No breaks defined yet."
   }
 }

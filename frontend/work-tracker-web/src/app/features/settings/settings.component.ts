@@ -1,12 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { BreakSlotService } from '../../core/services/break-slot.service';
 import { BreakSlot } from '../../shared/models/break-slot.model';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })

@@ -1,23 +1,26 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { HistoryService } from '../../core/services/history.service';
 import { TimeService } from '../../core/services/time.service';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoModule],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })
 export class HistoryComponent implements OnInit {
   private historyService = inject(HistoryService);
   private timeService = inject(TimeService);
+  private transloco = inject(TranslocoService);
+  private activeLang = toSignal(this.transloco.langChanges$, { initialValue: this.transloco.getActiveLang() });
 
   availableDates = this.historyService.availableDates;
   selectedDay = this.historyService.selectedDay;
 
-  // Bugün hariç geçmiş günler (bugünü zaten dashboard'da görüyorsun)
   pastDates = computed(() => {
     const today = new Date().toISOString().slice(0, 10);
     return this.availableDates().filter(d => d !== today);
@@ -32,8 +35,9 @@ export class HistoryComponent implements OnInit {
   }
 
   formatDate(dateStr: string): string {
+    const locale = this.activeLang() === 'tr' ? 'tr-TR' : 'en-US';
     const date = new Date(dateStr);
-    return new Intl.DateTimeFormat('tr-TR', {
+    return new Intl.DateTimeFormat(locale, {
       weekday: 'long',
       day: 'numeric',
       month: 'long'

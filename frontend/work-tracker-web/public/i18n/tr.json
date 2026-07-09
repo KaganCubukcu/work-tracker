@@ -18,5 +18,44 @@
     "breakPassed": "Geçti",
     "hoursShort": "sa",
     "minutesShort": "dk"
+  },
+  "common": {
+    "backToDashboard": "← Panele dön"
+  },
+  "dailyLog": {
+    "title": "Günlük Notlar",
+    "entryPlaceholder": "Bugün ne yaptın, ne oldu...",
+    "addEntry": "Not Ekle",
+    "searchPlaceholder": "Notlarda ara...",
+    "clearFilters": "Filtreyi temizle",
+    "removeEntry": "Notu sil",
+    "noSearchResults": "Aramanızla eşleşen kayıt bulunamadı.",
+    "noEntriesToday": "Bugün için henüz not yok."
+  },
+  "history": {
+    "title": "Geçmiş Günler",
+    "noPastDays": "Henüz geçmiş gün kaydı yok.",
+    "workSession": "Mesai",
+    "startLabel": "Başlangıç:",
+    "targetLabel": "Hedeflenen mesai:",
+    "targetHours": "{{hours}} saat",
+    "noSessionForDay": "O gün için mesai kaydı yok.",
+    "todosCount": "İşler ({{count}})",
+    "noTodosForDay": "O gün eklenen iş yok.",
+    "notesCount": "Notlar ({{count}})",
+    "noNotesForDay": "O gün not eklenmemiş.",
+    "selectDayPrompt": "Soldan bir gün seç."
+  },
+  "settings": {
+    "title": "Mola Ayarları",
+    "addBreakTitle": "Yeni Mola Ekle",
+    "breakNamePlaceholder": "Mola adı (örn. Sabah Molası)",
+    "add": "Ekle",
+    "currentBreaksTitle": "Mevcut Molalar",
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
+    "edit": "Düzenle",
+    "remove": "Sil",
+    "noBreaksYet": "Henüz mola tanımlanmadı."
   }
 }

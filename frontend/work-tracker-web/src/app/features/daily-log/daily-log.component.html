@@ -1,21 +1,21 @@
 <div class="log-card">
-  <h3>Günlük Notlar</h3>
+  <h3>{{ 'dailyLog.title' | transloco }}</h3>
 
   <form class="log-form" (submit)="$event.preventDefault(); addEntry()">
     <textarea
-      placeholder="Bugün ne yaptın, ne oldu..."
+      placeholder="{{ 'dailyLog.entryPlaceholder' | transloco }}"
       [value]="newEntry()"
       (input)="newEntry.set($any($event.target).value)"
       rows="2"
     ></textarea>
-    <button type="submit">Not Ekle</button>
+    <button type="submit">{{ 'dailyLog.addEntry' | transloco }}</button>
   </form>
 
   <div class="log-filters">
     <input
       type="text"
       class="search-input"
-      placeholder="Notlarda ara..."
+      placeholder="{{ 'dailyLog.searchPlaceholder' | transloco }}"
       [value]="searchInput()"
       (input)="onSearchInput($any($event.target).value)"
     />
@@ -34,7 +34,7 @@
     </div>
     @if (isFiltering()) {
       <button type="button" class="clear-filters-btn" (click)="clearFilters()">
-        Filtreyi temizle
+        {{ 'dailyLog.clearFilters' | transloco }}
       </button>
     }
   </div>
@@ -44,13 +44,13 @@
       <li>
         <span class="log-time">{{ formatTime(log.createdAt) }}</span>
         <span class="log-content">{{ log.content }}</span>
-        <button type="button" class="remove-btn" (click)="removeEntry(log.id)" aria-label="Notu sil">
+        <button type="button" class="remove-btn" (click)="removeEntry(log.id)" aria-label="{{ 'dailyLog.removeEntry' | transloco }}">
           ✕
         </button>
       </li>
     } @empty {
       <li class="empty-state">
-        {{ isFiltering() ? 'Aramanızla eşleşen kayıt bulunamadı.' : 'Bugün için henüz not yok.' }}
+        {{ (isFiltering() ? 'dailyLog.noSearchResults' : 'dailyLog.noEntriesToday') | transloco }}
       </li>
     }
   </ul>

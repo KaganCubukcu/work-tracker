@@ -1,15 +1,15 @@
 <div class="settings-page">
   <header class="settings-header">
-    <a routerLink="/" class="back-link">← Panele dön</a>
-    <h1>Mola Ayarları</h1>
+    <a routerLink="/" class="back-link">{{ 'common.backToDashboard' | transloco }}</a>
+    <h1>{{ 'settings.title' | transloco }}</h1>
   </header>
 
   <div class="settings-card">
-    <h3>Yeni Mola Ekle</h3>
+    <h3>{{ 'settings.addBreakTitle' | transloco }}</h3>
     <form class="break-form" (submit)="$event.preventDefault(); addBreak()">
       <input
         type="text"
-        placeholder="Mola adı (örn. Sabah Molası)"
+        placeholder="{{ 'settings.breakNamePlaceholder' | transloco }}"
         [value]="newLabel()"
         (input)="newLabel.set($any($event.target).value)"
       />
@@ -24,12 +24,12 @@
         [value]="newEnd()"
         (input)="newEnd.set($any($event.target).value)"
       />
-      <button type="submit">Ekle</button>
+      <button type="submit">{{ 'settings.add' | transloco }}</button>
     </form>
   </div>
 
   <div class="settings-card">
-    <h3>Mevcut Molalar</h3>
+    <h3>{{ 'settings.currentBreaksTitle' | transloco }}</h3>
     <ul class="break-list">
       @for (b of breaks(); track b.id) {
         <li>
@@ -51,20 +51,20 @@
                 [value]="editEnd()"
                 (input)="editEnd.set($any($event.target).value)"
               />
-              <button type="button" class="save-btn" (click)="saveEdit(b.id)">Kaydet</button>
-              <button type="button" class="cancel-btn" (click)="cancelEdit()">Vazgeç</button>
+              <button type="button" class="save-btn" (click)="saveEdit(b.id)">{{ 'settings.save' | transloco }}</button>
+              <button type="button" class="cancel-btn" (click)="cancelEdit()">{{ 'settings.cancel' | transloco }}</button>
             </div>
           } @else {
             <div class="break-row">
               <span class="break-row__label">{{ b.label }}</span>
               <span class="break-row__time">{{ b.startTime.slice(0,5) }}–{{ b.endTime.slice(0,5) }}</span>
-              <button type="button" class="edit-btn" (click)="startEdit(b)">Düzenle</button>
-              <button type="button" class="remove-btn" (click)="removeBreak(b.id)">Sil</button>
+              <button type="button" class="edit-btn" (click)="startEdit(b)">{{ 'settings.edit' | transloco }}</button>
+              <button type="button" class="remove-btn" (click)="removeBreak(b.id)">{{ 'settings.remove' | transloco }}</button>
             </div>
           }
         </li>
       } @empty {
-        <li class="empty-state">Henüz mola tanımlanmadı.</li>
+        <li class="empty-state">{{ 'settings.noBreaksYet' | transloco }}</li>
       }
     </ul>
   </div>

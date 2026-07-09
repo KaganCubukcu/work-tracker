@@ -1,10 +1,12 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { TranslocoModule } from '@jsverse/transloco';
 import { DailyLogService } from '../../core/services/daily-log.service';
 import { TimeService } from '../../core/services/time.service';
 
 @Component({
   selector: 'app-daily-log',
   standalone: true,
+  imports: [TranslocoModule],
   templateUrl: './daily-log.component.html',
   styleUrl: './daily-log.component.scss'
 })
