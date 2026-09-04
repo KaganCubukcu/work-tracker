@@ -1,7 +1,7 @@
 .dashboard {
-  max-width: 1100px;
+  max-width: 1800px;
   margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-lg) clamp(var(--space-md), 5vw, 4rem);
 }
 
 .dashboard-header {
@@ -14,7 +14,7 @@
   .eyebrow {
     display: block;
     font-family: var(--font-display);
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent);
@@ -22,7 +22,7 @@
   }
 
   h1 {
-    font-size: 1.75rem;
+    font-size: var(--font-size-title);
     text-transform: capitalize;
   }
 
@@ -34,19 +34,17 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
+  align-items: start;
 
-  app-time-tracker {
-    grid-column: 1 / -1;
+  > * {
+    min-width: 0;
+    display: flex;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
-
-    app-time-tracker {
-      grid-column: auto;
-    }
   }
 }
 
@@ -54,12 +52,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  flex-wrap: wrap;
 }
 
 .settings-link {
   color: var(--color-text-muted);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: var(--font-size-meta);
 
   &:hover {
     color: var(--color-accent);

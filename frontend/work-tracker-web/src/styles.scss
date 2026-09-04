@@ -1,16 +1,28 @@
 :root {
-  --color-bg: #12151C;
-  --color-panel: #3A3F4B;
-  --color-panel-alt: #2A2E38;
-  --color-text: #E8E4DB;
-  --color-text-muted: #8B90A0;
-  --color-accent: #F2A65A;
-  --color-success: #5B8C7B;
-  --color-danger: #C4634F;
-  --color-border: #4A4F5C;
+  --color-bg: #f8fafc;
+  --color-panel: #ffffff;
+  --color-panel-alt: #f1f5f9;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-warning: #d97706;
+  --color-info: #0284c7;
+  --color-border: #e2e8f0;
 
   --font-display: 'IBM Plex Mono', monospace;
   --font-body: 'IBM Plex Sans', sans-serif;
+
+  --font-size-display: 3rem;
+  --font-size-title: 1.75rem;
+  --font-size-heading: 1.125rem;
+  --font-size-body: 0.9375rem;
+  --font-size-meta: 0.8125rem;
+  --font-size-label: 0.75rem;
+
+  --font-weight-primary: 600;
+  --font-weight-body: 400;
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -20,11 +32,28 @@
   --space-lg: 2.5rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f172a;
+    --color-panel: #1e293b;
+    --color-panel-alt: #263449;
+    --color-text: #f8fafc;
+    --color-text-muted: #94a3b8;
+    --color-accent: #3b82f6;
+    --color-success: #22c55e;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #38bdf8;
+    --color-border: #334155;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -34,16 +63,26 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: var(--font-size-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: var(--font-weight-primary);
   letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--font-size-title);
+}
+
+h2 {
+  font-size: var(--font-size-heading);
 }
 
 button {
