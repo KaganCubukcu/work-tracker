@@ -1,6 +1,6 @@
 namespace WorkTracker.Api.Models;
 
-public class TodoItem
+public class TodoItem : IUserOwned, ISoftDeletable
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }

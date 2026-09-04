@@ -1,6 +1,6 @@
 namespace WorkTracker.Api.Models;
 
-public class WorkSession
+public class WorkSession : IUserOwned, ISoftDeletable
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }

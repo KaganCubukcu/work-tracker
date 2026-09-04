@@ -1,6 +1,6 @@
 namespace WorkTracker.Api.Models;
 
-public class BreakSlot
+public class BreakSlot : IUserOwned, ISoftDeletable
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
