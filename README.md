@@ -1,9 +1,10 @@
 # Work Tracker
 
-A personal work-tracking app. Built to keep daily working hours, days worked streak, break schedules and remaining break time, daily logs/notes, and a to-do list all in one place.
+A multi-user work-tracking app. Built to keep daily working hours, days worked streak, break schedules and remaining break time, daily logs/notes, and a to-do list all in one place.
 
 ## Features
 
+- **Accounts** — Self-service signup/login, JWT-based auth (access + refresh tokens)
 - **Work Time Tracking** — Clock-in/clock-out times and total hours worked
 - **Break Tracking** — Defined break slots with a countdown for remaining break time
 - **Daily Log** — Notes/events during the day, with search
@@ -31,8 +32,11 @@ A personal work-tracking app. Built to keep daily working hours, days worked str
 
 ### Backend
 
+A JWT signing key must be configured before the API will start:
+
 ```bash
 cd backend/WorkTracker.Api
+dotnet user-secrets set Jwt:SigningKey <your-secret-key>
 dotnet run
 ```
 
