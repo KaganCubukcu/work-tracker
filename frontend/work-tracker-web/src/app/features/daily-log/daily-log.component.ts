@@ -23,7 +23,7 @@ export class DailyLogComponent implements OnInit {
   dateTo = signal('');
   searchResults = this.logService.searchResults;
 
-  editingId = signal<number | null>(null);
+  editingId = signal<string | null>(null);
   editContent = signal('');
 
   isFiltering = computed(() =>
@@ -46,7 +46,7 @@ export class DailyLogComponent implements OnInit {
     this.newEntry.set('');
   }
 
-  removeEntry(id: number) {
+  removeEntry(id: string) {
     this.logService.remove(id);
   }
 
@@ -59,7 +59,7 @@ export class DailyLogComponent implements OnInit {
     this.editingId.set(null);
   }
 
-  async saveEdit(id: number) {
+  async saveEdit(id: string) {
     const content = this.editContent().trim();
     if (!content) return;
     await this.logService.update(id, content);

@@ -1,4 +1,4 @@
 export interface UserSettings {
-  id: number;
+  id: string;
   hireDate: string | null;
 }

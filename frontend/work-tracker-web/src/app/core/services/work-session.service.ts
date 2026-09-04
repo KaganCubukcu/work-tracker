@@ -1,5 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { WorkSession } from '../../shared/models/work-session.model';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +11,7 @@ export class WorkSessionService {
   session = signal<WorkSession | null>(null);
 
   async loadToday() {
-    const data = await this.http.get<WorkSession>(`${this.apiUrl}/today`).toPromise();
+    const data = await firstValueFrom(this.http.get<WorkSession>(`${this.apiUrl}/today`));
     this.session.set(data ?? null);
   }
 
@@ -18,13 +19,13 @@ export class WorkSessionService {
     const current = this.session();
     if (!current) return;
 
-    const updated = await this.http
-      .put<WorkSession>(`${this.apiUrl}/${current.id}`, {
+    const updated = await firstValueFrom(
+      this.http.put<WorkSession>(`${this.apiUrl}/${current.id}`, {
         ...current,
         startTime,
         expectedDailyHours
-      })
-      .toPromise();
+      }),
+    );
 
     if (updated) this.session.set(updated);
   }

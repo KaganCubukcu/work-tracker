@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest } from 'rxjs';
+import { combineLatest, firstValueFrom } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DailyLog } from '../../shared/models/daily-log.model';
 
@@ -11,7 +11,7 @@ export class DailyLogService {
   private apiUrl = '/api/daily-logs';
 
   logs = signal<DailyLog[]>([]);
-                                                                                                                                                                                                                                                                                                                                                                             
+
   private searchQuery = signal('');
   private dateFrom = signal<string | null>(null);
   private dateTo = signal<string | null>(null);
@@ -19,7 +19,7 @@ export class DailyLogService {
   private filters$ = combineLatest([
     toObservable(this.searchQuery).pipe(debounceTime(300), distinctUntilChanged()),
     toObservable(this.dateFrom),
-    toObservable(this.dateTo)
+    toObservable(this.dateTo),
   ]).pipe(
     switchMap(([q, from, to]) => {
       let params = new HttpParams();
@@ -27,7 +27,7 @@ export class DailyLogService {
       if (from) params = params.set('from', from);
       if (to) params = params.set('to', to);
       return this.http.get<DailyLog[]>(`${this.apiUrl}/search`, { params });
-    })
+    }),
   );
 
   searchResults = toSignal(this.filters$, { initialValue: [] as DailyLog[] });
@@ -55,30 +55,26 @@ export class DailyLogService {
   }
 
   async loadToday() {
-    const data = await this.http.get<DailyLog[]>(`${this.apiUrl}/today`).toPromise();
+    const data = await firstValueFrom(this.http.get<DailyLog[]>(`${this.apiUrl}/today`));
     this.logs.set(data ?? []);
   }
 
   async add(content: string) {
-    const newLog = await this.http
-      .post<DailyLog>(this.apiUrl, { content })
-      .toPromise();
+    const newLog = await firstValueFrom(this.http.post<DailyLog>(this.apiUrl, { content }));
     if (newLog) {
-      this.logs.update(list => [newLog, ...list]);
+      this.logs.update((list) => [newLog, ...list]);
     }
   }
 
-  async remove(id: number) {
-    await this.http.delete(`${this.apiUrl}/${id}`).toPromise();
-    this.logs.update(list => list.filter(l => l.id !== id));
+  async remove(id: string) {
+    await firstValueFrom(this.http.delete(`${this.apiUrl}/${id}`));
+    this.logs.update((list) => list.filter((l) => l.id !== id));
   }
 
-  async update(id: number, content: string) {
-    const updated = await this.http
-      .put<DailyLog>(`${this.apiUrl}/${id}`, { content })
-      .toPromise();
+  async update(id: string, content: string) {
+    const updated = await firstValueFrom(this.http.put<DailyLog>(`${this.apiUrl}/${id}`, { content }));
     if (updated) {
-      this.logs.update(list => list.map(l => (l.id === updated.id ? updated : l)));
+      this.logs.update((list) => list.map((l) => (l.id === updated.id ? updated : l)));
     }
   }
 }

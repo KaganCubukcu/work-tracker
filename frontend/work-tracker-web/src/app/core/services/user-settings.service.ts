@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { UserSettings } from '../../shared/models/user-settings.model';
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +12,7 @@ export class UserSettingsService {
 
   async load() {
     try {
-      const data = await this.http.get<UserSettings>(this.apiUrl).toPromise();
+      const data = await firstValueFrom(this.http.get<UserSettings>(this.apiUrl));
       this.settings.set(data ?? null);
     } catch (err) {
       console.error('Ayarlar yüklenemedi:', err);
@@ -21,9 +22,9 @@ export class UserSettingsService {
   async updateHireDate(hireDate: string) {
     try {
       const current = this.settings();
-      const updated = await this.http
-        .put<UserSettings>(this.apiUrl, { ...current, hireDate })
-        .toPromise();
+      const updated = await firstValueFrom(
+        this.http.put<UserSettings>(this.apiUrl, { ...current, hireDate }),
+      );
       if (updated) this.settings.set(updated);
     } catch (err) {
       console.error('İşe giriş tarihi güncellenemedi:', err);

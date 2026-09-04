@@ -1,6 +1,6 @@
 export interface BreakSlot {
-  id: number;
+  id: string;
   label: string;
-  startTime: string;  // "HH:mm:ss" formatında gelir (TimeOnly)
+  startTime: string;
   endTime: string;
 }

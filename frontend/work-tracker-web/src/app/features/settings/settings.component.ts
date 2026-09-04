@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
   newStart = signal('');
   newEnd = signal('');
 
-  editingId = signal<number | null>(null);
+  editingId = signal<string | null>(null);
   editLabel = signal('');
   editStart = signal('');
   editEnd = signal('');
@@ -54,7 +54,7 @@ export class SettingsComponent implements OnInit {
     this.editingId.set(null);
   }
 
-  saveEdit(id: number) {
+  saveEdit(id: string) {
     const label = this.editLabel().trim();
     const start = this.editStart();
     const end = this.editEnd();
@@ -65,7 +65,7 @@ export class SettingsComponent implements OnInit {
     this.editingId.set(null);
   }
 
-  removeBreak(id: number) {
+  removeBreak(id: string) {
     this.breakService.remove(id);
   }
 }

@@ -1,5 +1,5 @@
 export interface WorkSession {
-  id: number;
+  id: string;
   date: string;
   startTime: string;
   expectedDailyHours: number;

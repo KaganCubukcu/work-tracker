@@ -1,5 +1,5 @@
 export interface DailyLog {
-  id: number;
+  id: string;
   content: string;
   createdAt: string;
 }
