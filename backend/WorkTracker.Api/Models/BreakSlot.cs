@@ -2,7 +2,8 @@ namespace WorkTracker.Api.Models;
 
 public class BreakSlot
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
     public string Label { get; set; } = string.Empty;
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }

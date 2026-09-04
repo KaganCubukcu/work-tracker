@@ -2,7 +2,8 @@ namespace WorkTracker.Api.Models;
 
 public class WorkSession
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
     public DateOnly Date { get; set; }
     public DateTime StartTime { get; set; }
     public double ExpectedDailyHours { get; set; } = 9;
