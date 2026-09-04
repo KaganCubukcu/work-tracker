@@ -50,6 +50,25 @@
     "noNotesForDay": "O gün not eklenmemiş.",
     "selectDayPrompt": "Soldan bir gün seç."
   },
+  "auth": {
+    "loginTitle": "Giriş Yap",
+    "signupTitle": "Kayıt Ol",
+    "email": "Email",
+    "username": "Kullanıcı adı",
+    "password": "Şifre",
+    "loginButton": "Giriş Yap",
+    "signupButton": "Kayıt Ol",
+    "noAccount": "Hesabın yok mu?",
+    "haveAccount": "Zaten hesabın var mı?",
+    "goToSignup": "Kayıt ol",
+    "goToLogin": "Giriş yap",
+    "logout": "Çıkış Yap",
+    "invalidCredentials": "Email veya şifre hatalı.",
+    "emailTaken": "Bu email zaten kayıtlı.",
+    "usernameTaken": "Bu kullanıcı adı zaten kayıtlı.",
+    "passwordTooShort": "Şifre en az 8 karakter olmalıdır.",
+    "genericError": "Bir hata oluştu, tekrar deneyin."
+  },
   "settings": {
     "title": "Mola Ayarları",
     "addBreakTitle": "Yeni Mola Ekle",

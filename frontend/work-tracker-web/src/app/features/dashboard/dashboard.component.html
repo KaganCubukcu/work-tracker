@@ -9,6 +9,7 @@
       <app-lang-switcher />
       <a routerLink="/settings" class="settings-link">{{ 'dashboard.settings' | transloco }}</a>
       <app-tenure-badge />
+      <button type="button" class="logout-btn" (click)="logout()">{{ 'auth.logout' | transloco }}</button>
     </div>
   </header>
 

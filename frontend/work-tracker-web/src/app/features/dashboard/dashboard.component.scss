@@ -64,3 +64,16 @@
     color: var(--color-accent);
   }
 }
+
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-meta);
+  font-family: var(--font-body);
+
+  &:hover {
+    color: var(--color-danger);
+  }
+}

@@ -1,0 +1,51 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>{{ 'auth.signupTitle' | transloco }}</h1>
+
+    <form class="auth-form" (submit)="$event.preventDefault(); submit()">
+      <label>
+        {{ 'auth.email' | transloco }}
+        <input
+          type="email"
+          autocomplete="email"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+          required
+        />
+      </label>
+
+      <label>
+        {{ 'auth.username' | transloco }}
+        <input
+          type="text"
+          autocomplete="username"
+          [value]="username()"
+          (input)="username.set($any($event.target).value)"
+          required
+        />
+      </label>
+
+      <label>
+        {{ 'auth.password' | transloco }}
+        <input
+          type="password"
+          autocomplete="new-password"
+          [value]="password()"
+          (input)="password.set($any($event.target).value)"
+          required
+        />
+      </label>
+
+      @if (error()) {
+        <p class="auth-error">{{ error()! | transloco }}</p>
+      }
+
+      <button type="submit" [disabled]="submitting()">{{ 'auth.signupButton' | transloco }}</button>
+    </form>
+
+    <p class="auth-switch">
+      {{ 'auth.haveAccount' | transloco }}
+      <a routerLink="/login">{{ 'auth.goToLogin' | transloco }}</a>
+    </p>
+  </div>
+</div>

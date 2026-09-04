@@ -50,6 +50,25 @@
     "noNotesForDay": "No notes added that day.",
     "selectDayPrompt": "Select a day from the left."
   },
+  "auth": {
+    "loginTitle": "Log In",
+    "signupTitle": "Sign Up",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Log In",
+    "signupButton": "Sign Up",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "goToSignup": "Sign up",
+    "goToLogin": "Log in",
+    "logout": "Log Out",
+    "invalidCredentials": "Invalid email or password.",
+    "emailTaken": "This email is already registered.",
+    "usernameTaken": "This username is already taken.",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "genericError": "Something went wrong, please try again."
+  },
   "settings": {
     "title": "Break Settings",
     "addBreakTitle": "Add New Break",
