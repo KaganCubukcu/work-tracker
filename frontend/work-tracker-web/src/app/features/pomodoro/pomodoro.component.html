@@ -8,6 +8,10 @@
     </div>
   </div>
 
+  <div class="pomodoro-card__total">
+    {{ 'pomodoro.totalToday' | transloco }}: {{ completedWorkRounds() }} ({{ totalWorkMinutesToday() }} {{ 'pomodoro.minutes' | transloco }})
+  </div>
+
   <div class="pomodoro-card__display">
     <span class="digit">{{ displayMinutes() | number:'2.0' }}</span>
     <span class="sep">:</span>
@@ -26,6 +30,9 @@
     @if (!active()) {
       <button type="button" class="start-btn" (click)="start()">{{ 'pomodoro.start' | transloco }}</button>
     } @else {
+      @if (active()?.type === PomodoroSessionType.Work) {
+        <button type="button" class="skip-btn" (click)="skipToBreak()">{{ 'pomodoro.skipToBreak' | transloco }}</button>
+      }
       <button type="button" class="reset-btn" (click)="reset()">{{ 'pomodoro.reset' | transloco }}</button>
     }
   </div>

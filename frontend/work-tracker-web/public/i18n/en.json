@@ -27,7 +27,10 @@
     "shortBreak": "Short Break",
     "longBreak": "Long Break",
     "start": "Start",
-    "reset": "Reset"
+    "reset": "Reset",
+    "skipToBreak": "Skip to Break",
+    "totalToday": "Completed today",
+    "minutes": "min"
   },
   "dailyLog": {
     "title": "Daily Notes",

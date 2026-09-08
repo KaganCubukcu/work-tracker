@@ -33,6 +33,17 @@ export class PomodoroComponent implements OnInit {
     this.todayCompleted().filter(s => s.type === PomodoroSessionType.Work).length
   );
 
+  totalWorkMinutesToday = computed(() => {
+    const totalSeconds = this.todayCompleted()
+      .filter(s => s.type === PomodoroSessionType.Work)
+      .reduce((sum, s) => {
+        const started = new Date(s.startedAt).getTime();
+        const completed = new Date(s.completedAt!).getTime();
+        return sum + (completed - started) / 1000;
+      }, 0);
+    return Math.round(totalSeconds / 60);
+  });
+
   roundsBeforeLongBreak = computed(() => this.settings()?.pomodoroRoundsBeforeLongBreak ?? 4);
 
   currentRoundInCycle = computed(() => {
@@ -129,5 +140,18 @@ export class PomodoroComponent implements OnInit {
     const session = this.active();
     if (!session) return;
     await this.pomodoroService.reset(session.id);
+  }
+
+  async skipToBreak() {
+    const session = this.active();
+    if (!session || session.type !== PomodoroSessionType.Work) return;
+
+    this.isFinished.set(true);
+    await this.pomodoroService.complete(session.id);
+
+    const isLongBreak = this.roundsBeforeLongBreak() > 0
+      && this.completedWorkRounds() % this.roundsBeforeLongBreak() === 0;
+    this.nextType.set(isLongBreak ? PomodoroSessionType.LongBreak : PomodoroSessionType.ShortBreak);
+    this.isFinished.set(false);
   }
 }

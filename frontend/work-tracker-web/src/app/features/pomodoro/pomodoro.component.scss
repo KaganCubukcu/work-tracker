@@ -76,9 +76,16 @@
   }
 }
 
+.pomodoro-card__total {
+  text-align: center;
+  font-size: var(--font-size-meta);
+  color: var(--color-text-muted);
+}
+
 .pomodoro-card__actions {
   display: flex;
   justify-content: center;
+  gap: var(--space-sm);
 }
 
 .start-btn {
@@ -92,6 +99,21 @@
 
   &:hover {
     opacity: 0.9;
+  }
+}
+
+.skip-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.5rem;
+  font-size: var(--font-size-body);
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 }
 

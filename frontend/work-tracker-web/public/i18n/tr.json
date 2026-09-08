@@ -27,7 +27,10 @@
     "shortBreak": "Kısa Mola",
     "longBreak": "Uzun Mola",
     "start": "Başlat",
-    "reset": "Sıfırla"
+    "reset": "Sıfırla",
+    "skipToBreak": "Molaya Geç",
+    "totalToday": "Bugün tamamlanan",
+    "minutes": "dk"
   },
   "dailyLog": {
     "title": "Günlük Notlar",
