@@ -72,11 +72,15 @@ export class DailyLogService {
   }
 
   async update(id: string, content: string, displayTime: string | null) {
-    const updated = await firstValueFrom(
-      this.http.put<DailyLog>(`${this.apiUrl}/${id}`, { content, displayTime }),
-    );
+    const updated = await firstValueFrom(this.http.put<DailyLog>(`${this.apiUrl}/${id}`, { content, displayTime }));
     if (updated) {
-      this.logs.update((list) => list.map((l) => (l.id === updated.id ? updated : l)));
+      this.logs.update((list) =>
+        list.map((l) => (l.id === updated.id ? updated : l)).sort((a, b) => this.sortTime(b) - this.sortTime(a)),
+      );
     }
+  }
+
+  private sortTime(log: DailyLog): number {
+    return new Date(log.displayTime ?? log.createdAt).getTime();
   }
 }

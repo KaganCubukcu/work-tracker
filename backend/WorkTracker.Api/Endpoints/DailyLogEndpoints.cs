@@ -22,7 +22,7 @@ public static class DailyLogEndpoints
                          && l.CreatedAt.Year == today.Year
                          && l.CreatedAt.Month == today.Month
                          && l.CreatedAt.Day == today.Day)
-                .OrderByDescending(l => l.CreatedAt)
+                .OrderByDescending(l => l.DisplayTime ?? l.CreatedAt)
                 .ToListAsync();
 
             return Results.Ok(entries);
@@ -84,7 +84,7 @@ public static class DailyLogEndpoints
             }
 
             var results = await query
-                .OrderByDescending(l => l.CreatedAt)
+                .OrderByDescending(l => l.DisplayTime ?? l.CreatedAt)
                 .ToListAsync();
 
             return Results.Ok(results);
