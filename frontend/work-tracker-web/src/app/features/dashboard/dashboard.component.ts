@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TimeTrackerComponent } from '../time-tracker/time-tracker.component';
+import { PomodoroComponent } from '../pomodoro/pomodoro.component';
 import { TodoComponent } from '../todo/todo.component';
 import { DailyLogComponent } from '../daily-log/daily-log.component';
 import { TenureBadgeComponent } from '../tenure-badge/tenure-badge.component';
@@ -12,7 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, TranslocoModule, LangSwitcherComponent, TimeTrackerComponent, TodoComponent, DailyLogComponent, TenureBadgeComponent],
+  imports: [RouterLink, TranslocoModule, LangSwitcherComponent, TimeTrackerComponent, PomodoroComponent, TodoComponent, DailyLogComponent, TenureBadgeComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { BreakSlotService } from '../../core/services/break-slot.service';
+import { UserSettingsService } from '../../core/services/user-settings.service';
 import { BreakSlot } from '../../shared/models/break-slot.model';
 
 @Component({
@@ -13,8 +14,10 @@ import { BreakSlot } from '../../shared/models/break-slot.model';
 })
 export class SettingsComponent implements OnInit {
   private breakService = inject(BreakSlotService);
+  private userSettingsService = inject(UserSettingsService);
 
   breaks = this.breakService.breaks;
+  userSettings = this.userSettingsService.settings;
 
   newLabel = signal('');
   newStart = signal('');
@@ -25,8 +28,31 @@ export class SettingsComponent implements OnInit {
   editStart = signal('');
   editEnd = signal('');
 
-  ngOnInit() {
+  pomodoroWorkMinutes = signal(25);
+  pomodoroShortBreakMinutes = signal(5);
+  pomodoroLongBreakMinutes = signal(15);
+  pomodoroRoundsBeforeLongBreak = signal(4);
+
+  async ngOnInit() {
     this.breakService.load();
+    await this.userSettingsService.load();
+
+    const s = this.userSettings();
+    if (s) {
+      this.pomodoroWorkMinutes.set(s.pomodoroWorkMinutes);
+      this.pomodoroShortBreakMinutes.set(s.pomodoroShortBreakMinutes);
+      this.pomodoroLongBreakMinutes.set(s.pomodoroLongBreakMinutes);
+      this.pomodoroRoundsBeforeLongBreak.set(s.pomodoroRoundsBeforeLongBreak);
+    }
+  }
+
+  savePomodoroSettings() {
+    this.userSettingsService.updatePomodoroSettings({
+      pomodoroWorkMinutes: this.pomodoroWorkMinutes(),
+      pomodoroShortBreakMinutes: this.pomodoroShortBreakMinutes(),
+      pomodoroLongBreakMinutes: this.pomodoroLongBreakMinutes(),
+      pomodoroRoundsBeforeLongBreak: this.pomodoroRoundsBeforeLongBreak(),
+    });
   }
 
   addBreak() {

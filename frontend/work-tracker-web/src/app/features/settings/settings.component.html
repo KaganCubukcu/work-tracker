@@ -29,6 +29,49 @@
   </div>
 
   <div class="settings-card">
+    <h3>{{ 'settings.pomodoroTitle' | transloco }}</h3>
+    <form class="pomodoro-settings-form" (submit)="$event.preventDefault(); savePomodoroSettings()">
+      <label>
+        <span>{{ 'settings.pomodoroWorkMinutes' | transloco }}</span>
+        <input
+          type="number"
+          min="1"
+          [value]="pomodoroWorkMinutes()"
+          (input)="pomodoroWorkMinutes.set($any($event.target).valueAsNumber)"
+        />
+      </label>
+      <label>
+        <span>{{ 'settings.pomodoroShortBreakMinutes' | transloco }}</span>
+        <input
+          type="number"
+          min="1"
+          [value]="pomodoroShortBreakMinutes()"
+          (input)="pomodoroShortBreakMinutes.set($any($event.target).valueAsNumber)"
+        />
+      </label>
+      <label>
+        <span>{{ 'settings.pomodoroLongBreakMinutes' | transloco }}</span>
+        <input
+          type="number"
+          min="1"
+          [value]="pomodoroLongBreakMinutes()"
+          (input)="pomodoroLongBreakMinutes.set($any($event.target).valueAsNumber)"
+        />
+      </label>
+      <label>
+        <span>{{ 'settings.pomodoroRoundsBeforeLongBreak' | transloco }}</span>
+        <input
+          type="number"
+          min="1"
+          [value]="pomodoroRoundsBeforeLongBreak()"
+          (input)="pomodoroRoundsBeforeLongBreak.set($any($event.target).valueAsNumber)"
+        />
+      </label>
+      <button type="submit">{{ 'settings.save' | transloco }}</button>
+    </form>
+  </div>
+
+  <div class="settings-card">
     <h3>{{ 'settings.currentBreaksTitle' | transloco }}</h3>
     <ul class="break-list">
       @for (b of breaks(); track b.id) {

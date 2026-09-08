@@ -32,12 +32,25 @@ public static class UserSettingsEndpoints
 
             if (s is null)
             {
-                s = new UserSettings { Id = Guid.NewGuid(), UserId = user.GetUserId(), HireDate = updated.HireDate };
+                s = new UserSettings
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = user.GetUserId(),
+                    HireDate = updated.HireDate,
+                    PomodoroWorkMinutes = updated.PomodoroWorkMinutes,
+                    PomodoroShortBreakMinutes = updated.PomodoroShortBreakMinutes,
+                    PomodoroLongBreakMinutes = updated.PomodoroLongBreakMinutes,
+                    PomodoroRoundsBeforeLongBreak = updated.PomodoroRoundsBeforeLongBreak
+                };
                 db.UserSettings.Add(s);
             }
             else
             {
                 s.HireDate = updated.HireDate;
+                s.PomodoroWorkMinutes = updated.PomodoroWorkMinutes;
+                s.PomodoroShortBreakMinutes = updated.PomodoroShortBreakMinutes;
+                s.PomodoroLongBreakMinutes = updated.PomodoroLongBreakMinutes;
+                s.PomodoroRoundsBeforeLongBreak = updated.PomodoroRoundsBeforeLongBreak;
             }
 
             await db.SaveChangesAsync();

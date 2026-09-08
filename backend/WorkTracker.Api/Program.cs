@@ -69,6 +69,7 @@ app.MapTodoEndpoints();
 app.MapWorkSessionEndpoints();
 app.MapDailyLogEndpoints();
 app.MapBreakSlotEndpoints();
+app.MapPomodoroEndpoints();
 app.MapUserSettingsEndpoints();
 app.MapHistoryEndpoints();
 

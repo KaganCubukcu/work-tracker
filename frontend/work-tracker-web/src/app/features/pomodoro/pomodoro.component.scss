@@ -1,0 +1,118 @@
+.pomodoro-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.pomodoro-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pomodoro-card__label {
+  font-size: var(--font-size-meta);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pomodoro-rounds {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.pomodoro-rounds__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-panel-alt);
+  border: 1px solid var(--color-border);
+
+  &--filled {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+.pomodoro-card__display {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-display);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.1em;
+
+  .sep {
+    color: var(--color-text-muted);
+    margin: 0 0.05em;
+  }
+}
+
+.progress-track {
+  height: 6px;
+  background: var(--color-panel-alt);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 1s linear;
+  border-radius: 999px;
+
+  &--break {
+    background: var(--color-success);
+  }
+}
+
+.pomodoro-card__actions {
+  display: flex;
+  justify-content: center;
+}
+
+.start-btn {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.5rem;
+  font-weight: var(--font-weight-primary);
+  font-size: var(--font-size-body);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.reset-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.5rem;
+  font-size: var(--font-size-body);
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+  }
+}
+
+.pomodoro-card--break {
+  .pomodoro-rounds__dot--filled {
+    background: var(--color-success);
+    border-color: var(--color-success);
+  }
+}

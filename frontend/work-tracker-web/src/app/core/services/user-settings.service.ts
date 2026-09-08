@@ -30,4 +30,21 @@ export class UserSettingsService {
       console.error('İşe giriş tarihi güncellenemedi:', err);
     }
   }
+
+  async updatePomodoroSettings(settings: {
+    pomodoroWorkMinutes: number;
+    pomodoroShortBreakMinutes: number;
+    pomodoroLongBreakMinutes: number;
+    pomodoroRoundsBeforeLongBreak: number;
+  }) {
+    try {
+      const current = this.settings();
+      const updated = await firstValueFrom(
+        this.http.put<UserSettings>(this.apiUrl, { ...current, ...settings }),
+      );
+      if (updated) this.settings.set(updated);
+    } catch (err) {
+      console.error('Pomodoro ayarları güncellenemedi:', err);
+    }
+  }
 }

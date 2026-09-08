@@ -13,6 +13,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAc
     public DbSet<WorkSession> WorkSessions => Set<WorkSession>();
     public DbSet<DailyLog> DailyLogs => Set<DailyLog>();
     public DbSet<BreakSlot> BreakSlots => Set<BreakSlot>();
+    public DbSet<PomodoroSession> PomodoroSessions => Set<PomodoroSession>();
     public DbSet<UserSettings> UserSettings => Set<UserSettings>();
     public DbSet<User> Users => Set<User>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();

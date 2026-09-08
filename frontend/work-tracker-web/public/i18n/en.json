@@ -22,6 +22,13 @@
   "common": {
     "backToDashboard": "← Back to dashboard"
   },
+  "pomodoro": {
+    "focus": "Focus",
+    "shortBreak": "Short Break",
+    "longBreak": "Long Break",
+    "start": "Start",
+    "reset": "Reset"
+  },
   "dailyLog": {
     "title": "Daily Notes",
     "entryPlaceholder": "What did you do today...",
@@ -79,6 +86,11 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "remove": "Delete",
-    "noBreaksYet": "No breaks defined yet."
+    "noBreaksYet": "No breaks defined yet.",
+    "pomodoroTitle": "Pomodoro Settings",
+    "pomodoroWorkMinutes": "Focus (min)",
+    "pomodoroShortBreakMinutes": "Short break (min)",
+    "pomodoroLongBreakMinutes": "Long break (min)",
+    "pomodoroRoundsBeforeLongBreak": "Rounds before long break"
   }
 }

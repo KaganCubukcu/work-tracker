@@ -1,0 +1,32 @@
+<div class="pomodoro-card" [class.pomodoro-card--break]="isBreak()">
+  <div class="pomodoro-card__header">
+    <span class="pomodoro-card__label">{{ phaseLabel() }}</span>
+    <div class="pomodoro-rounds">
+      @for (i of [0, 1, 2, 3]; track i) {
+        <span class="pomodoro-rounds__dot" [class.pomodoro-rounds__dot--filled]="i < currentRoundInCycle()"></span>
+      }
+    </div>
+  </div>
+
+  <div class="pomodoro-card__display">
+    <span class="digit">{{ displayMinutes() | number:'2.0' }}</span>
+    <span class="sep">:</span>
+    <span class="digit">{{ displaySeconds() | number:'2.0' }}</span>
+  </div>
+
+  <div class="progress-track">
+    <div
+      class="progress-fill"
+      [class.progress-fill--break]="isBreak()"
+      [style.width.%]="progressPercent()"
+    ></div>
+  </div>
+
+  <div class="pomodoro-card__actions">
+    @if (!active()) {
+      <button type="button" class="start-btn" (click)="start()">{{ 'pomodoro.start' | transloco }}</button>
+    } @else {
+      <button type="button" class="reset-btn" (click)="reset()">{{ 'pomodoro.reset' | transloco }}</button>
+    }
+  </div>
+</div>
