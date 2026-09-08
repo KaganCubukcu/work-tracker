@@ -44,6 +44,11 @@
       <li>
         @if (editingId() === log.id) {
           <div class="log-edit-row">
+            <input
+              type="time"
+              [value]="editTime()"
+              (input)="editTime.set($any($event.target).value)"
+            />
             <textarea
               [value]="editContent()"
               (input)="editContent.set($any($event.target).value)"
@@ -55,7 +60,7 @@
             </div>
           </div>
         } @else {
-          <span class="log-time">{{ formatTime(log.createdAt) }}</span>
+          <span class="log-time">{{ displayTimeFor(log) }}</span>
           <span class="log-content">{{ log.content }}</span>
           <button type="button" class="edit-btn" (click)="startEdit(log)" aria-label="{{ 'dailyLog.editEntry' | transloco }}">
             ✎

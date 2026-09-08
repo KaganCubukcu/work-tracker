@@ -25,6 +25,7 @@ export class DailyLogComponent implements OnInit {
 
   editingId = signal<string | null>(null);
   editContent = signal('');
+  editTime = signal('');
 
   isFiltering = computed(() =>
     this.searchInput().trim() !== '' || this.dateFrom() !== '' || this.dateTo() !== ''
@@ -53,6 +54,7 @@ export class DailyLogComponent implements OnInit {
   startEdit(log: DailyLog) {
     this.editingId.set(log.id);
     this.editContent.set(log.content);
+    this.editTime.set(this.formatTime(log.displayTime ?? log.createdAt));
   }
 
   cancelEdit() {
@@ -62,7 +64,14 @@ export class DailyLogComponent implements OnInit {
   async saveEdit(id: string) {
     const content = this.editContent().trim();
     if (!content) return;
-    await this.logService.update(id, content);
+
+    const log = this.displayedLogs().find((l) => l.id === id);
+    const reference = log?.displayTime ?? log?.createdAt;
+    const displayTime = reference
+      ? this.timeService.localTimeToUtcIso(this.editTime(), reference)
+      : null;
+
+    await this.logService.update(id, content, displayTime);
     this.editingId.set(null);
   }
 
@@ -94,7 +103,11 @@ export class DailyLogComponent implements OnInit {
     this.logService.clearFilters();
   }
 
-  formatTime(createdAt: string): string {
-    return this.timeService.toLocalTimeString(createdAt);
+  formatTime(isoString: string): string {
+    return this.timeService.toLocalTimeString(isoString);
+  }
+
+  displayTimeFor(log: DailyLog): string {
+    return this.formatTime(log.displayTime ?? log.createdAt);
   }
 }

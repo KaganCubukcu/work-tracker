@@ -54,6 +54,7 @@ public static class DailyLogEndpoints
             if (log is null) return Results.NotFound();
 
             log.Content = updated.Content;
+            log.DisplayTime = updated.DisplayTime;
 
             await db.SaveChangesAsync();
             return Results.Ok(log);

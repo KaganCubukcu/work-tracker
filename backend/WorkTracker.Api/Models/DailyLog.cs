@@ -6,5 +6,6 @@ public class DailyLog : IUserOwned, ISoftDeletable
     public Guid UserId { get; set; }
     public string Content { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? DisplayTime { get; set; }
     public DateTime? DeletedAt { get; set; }
 }

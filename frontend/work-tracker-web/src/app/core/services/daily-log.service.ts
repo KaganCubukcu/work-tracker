@@ -71,8 +71,10 @@ export class DailyLogService {
     this.logs.update((list) => list.filter((l) => l.id !== id));
   }
 
-  async update(id: string, content: string) {
-    const updated = await firstValueFrom(this.http.put<DailyLog>(`${this.apiUrl}/${id}`, { content }));
+  async update(id: string, content: string, displayTime: string | null) {
+    const updated = await firstValueFrom(
+      this.http.put<DailyLog>(`${this.apiUrl}/${id}`, { content, displayTime }),
+    );
     if (updated) {
       this.logs.update((list) => list.map((l) => (l.id === updated.id ? updated : l)));
     }
