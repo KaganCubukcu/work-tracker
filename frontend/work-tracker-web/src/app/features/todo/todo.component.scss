@@ -29,7 +29,8 @@
     color: var(--color-text);
     font-size: var(--font-size-body);
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       border-color: var(--color-accent);
     }
   }
@@ -83,13 +84,14 @@ li {
     opacity: 0.7;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     accent-color: var(--color-success);
     width: 16px;
     height: 16px;
   }
 }
 
+.edit-btn,
 .remove-btn {
   background: none;
   border: none;
@@ -97,14 +99,75 @@ li {
   font-size: var(--font-size-meta);
   padding: 0.25rem;
   opacity: 0;
-  transition: opacity 0.15s ease, color 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease;
 
   li:hover & {
     opacity: 1;
   }
+}
+
+.edit-btn:hover {
+  color: var(--color-accent);
+}
+
+.remove-btn:hover {
+  color: var(--color-danger);
+}
+
+.todo-edit-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+
+  input[type='text'] {
+    flex: 1;
+    background: var(--color-panel-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.75rem;
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+
+    &:hover,
+    &:focus {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+
+    button {
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.8rem;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-primary);
+    }
+  }
+}
+
+.save-btn {
+  background: var(--color-accent);
+  color: var(--color-bg);
 
   &:hover {
-    color: var(--color-danger);
+    opacity: 0.9;
+  }
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text-muted);
+
+  &:hover {
+    border-color: var(--color-danger) !important;
   }
 }
 

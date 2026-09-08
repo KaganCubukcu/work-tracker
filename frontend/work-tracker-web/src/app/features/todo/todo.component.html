@@ -14,17 +14,22 @@
   <ul class="todo-list">
     @for (todo of todos(); track todo.id) {
       <li [class.done]="todo.isDone">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="todo.isDone"
-            (change)="toggleTodo(todo)"
-          />
-          <span>{{ todo.title }}</span>
-        </label>
-        <button type="button" class="remove-btn" (click)="removeTodo(todo.id)" aria-label="İşi sil">
-          ✕
-        </button>
+        @if (editingId() === todo.id) {
+          <div class="todo-edit-row">
+            <input type="text" [value]="editTitle()" (input)="editTitle.set($any($event.target).value)" />
+            <div class="todo-edit-row__actions">
+              <button type="button" class="save-btn" (click)="saveEdit(todo)">Kaydet</button>
+              <button type="button" class="cancel-btn" (click)="cancelEdit()">Vazgeç</button>
+            </div>
+          </div>
+        } @else {
+          <label>
+            <input type="checkbox" [checked]="todo.isDone" (change)="toggleTodo(todo)" />
+            <span>{{ todo.title }}</span>
+          </label>
+          <button type="button" class="edit-btn" (click)="startEdit(todo)" aria-label="İşi düzenle">✎</button>
+          <button type="button" class="remove-btn" (click)="removeTodo(todo.id)" aria-label="İşi sil">✕</button>
+        }
       </li>
     } @empty {
       <li class="empty-state">Henüz iş eklenmedi. Yukarıdan ekleyebilirsin.</li>

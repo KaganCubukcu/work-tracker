@@ -6,13 +6,16 @@ import { TodoItem } from '../../shared/models/todo.model';
   selector: 'app-todo',
   standalone: true,
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.scss'
+  styleUrl: './todo.component.scss',
 })
 export class TodoComponent implements OnInit {
   private todoService = inject(TodoService);
 
   todos = this.todoService.todos;
   newTitle = signal('');
+
+  editingId = signal<string | null>(null);
+  editTitle = signal('');
 
   ngOnInit() {
     this.todoService.load();
@@ -32,5 +35,21 @@ export class TodoComponent implements OnInit {
 
   removeTodo(id: string) {
     this.todoService.remove(id);
+  }
+
+  startEdit(todo: TodoItem) {
+    this.editingId.set(todo.id);
+    this.editTitle.set(todo.title);
+  }
+
+  cancelEdit() {
+    this.editingId.set(null);
+  }
+
+  async saveEdit(todo: TodoItem) {
+    const title = this.editTitle().trim();
+    if (!title) return;
+    await this.todoService.update(todo, title);
+    this.editingId.set(null);
   }
 }

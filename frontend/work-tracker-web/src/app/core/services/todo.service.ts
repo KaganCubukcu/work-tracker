@@ -16,11 +16,9 @@ export class TodoService {
   }
 
   async add(title: string) {
-    const newTodo = await firstValueFrom(
-      this.http.post<TodoItem>(this.apiUrl, { title, isDone: false }),
-    );
+    const newTodo = await firstValueFrom(this.http.post<TodoItem>(this.apiUrl, { title, isDone: false }));
     if (newTodo) {
-      this.todos.update(list => [newTodo, ...list]);
+      this.todos.update((list) => [newTodo, ...list]);
     }
   }
 
@@ -29,14 +27,19 @@ export class TodoService {
       this.http.put<TodoItem>(`${this.apiUrl}/${todo.id}`, { ...todo, isDone: !todo.isDone }),
     );
     if (updated) {
-      this.todos.update(list =>
-        list.map(t => (t.id === updated.id ? updated : t))
-      );
+      this.todos.update((list) => list.map((t) => (t.id === updated.id ? updated : t)));
+    }
+  }
+
+  async update(todo: TodoItem, title: string) {
+    const updated = await firstValueFrom(this.http.put<TodoItem>(`${this.apiUrl}/${todo.id}`, { ...todo, title }));
+    if (updated) {
+      this.todos.update((list) => list.map((t) => (t.id === updated.id ? updated : t)));
     }
   }
 
   async remove(id: string) {
     await firstValueFrom(this.http.delete(`${this.apiUrl}/${id}`));
-    this.todos.update(list => list.filter(t => t.id !== id));
+    this.todos.update((list) => list.filter((t) => t.id !== id));
   }
 }
